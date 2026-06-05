@@ -39,94 +39,62 @@ export default function Home() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0EBE3' }}>
       <Header />
 
-      {/* Hero — dark navy */}
-      <section style={{ backgroundColor: '#0D2645' }}>
-        <div className="max-w-6xl mx-auto px-8 pt-16 pb-20">
-
-          {/* Section label — matches presentation */}
+      {/* Hero — limpio, sin ondas */}
+      <section style={{ backgroundColor: '#0D2645', paddingTop: '56px', paddingBottom: '64px' }}>
+        <div className="max-w-6xl mx-auto px-8">
           <div className="section-label" style={{ marginBottom: '20px' }}>
             Boletín de Noticias
           </div>
-
           <h1
             style={{
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
-              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontSize: 'clamp(2rem, 4.5vw, 2.8rem)',
               color: '#FFFFFF',
               letterSpacing: '0.02em',
               lineHeight: 1.2,
+              margin: 0,
             }}
           >
             Arbitraje Internacional
           </h1>
-
-          {/* Copper italic accent — like the presentation headlines */}
           <div
             style={{
               fontFamily: 'Georgia, serif',
               fontStyle: 'italic',
-              fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
               color: '#C17F3E',
-              marginTop: '8px',
+              marginTop: '10px',
               fontWeight: 300,
             }}
           >
             Claridad rigurosa. Análisis que se sostiene.
           </div>
-
           {formattedDate && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                marginTop: '28px',
-              }}
-            >
-              <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} />
-              <span style={{ color: '#6B88A8', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '24px' }}>
+              <div style={{ width: '24px', height: '1px', backgroundColor: '#C17F3E' }} />
+              <span style={{ color: '#6B88A8', fontSize: '0.78rem', letterSpacing: '0.06em' }}>
                 Edición #{data.edition} · {formattedDate}
               </span>
             </div>
           )}
         </div>
-
-        {/* Wave to cream */}
-        <svg viewBox="0 0 1440 36" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
-          <path d="M0,36 L0,18 Q360,0 720,18 Q1080,36 1440,18 L1440,36 Z" fill="#F0EBE3"/>
-        </svg>
       </section>
 
-      {/* News section — cream */}
-      <main style={{ flex: 1, backgroundColor: '#F0EBE3', paddingTop: '40px', paddingBottom: '80px' }}>
-        <div className="max-w-6xl mx-auto px-8">
+      {/* Separador limpio — solo un borde */}
+      <div style={{ height: '3px', backgroundColor: '#C17F3E' }} />
 
+      {/* Noticias */}
+      <main style={{ flex: 1, backgroundColor: '#F0EBE3', paddingTop: '52px', paddingBottom: '80px' }}>
+        <div className="max-w-6xl mx-auto px-8">
           {hasNews ? (
             <>
-              {/* Count label */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  marginBottom: '36px',
-                }}
-              >
-                <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} />
-                <span
-                  style={{
-                    color: '#9A8E84',
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    fontWeight: 500,
-                  }}
-                >
-                  {data.articles.length} noticias seleccionadas esta semana
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '36px' }}>
+                <div style={{ width: '24px', height: '1px', backgroundColor: '#C17F3E' }} />
+                <span style={{ color: '#9A8E84', fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 500 }}>
+                  {data.articles.length} noticias seleccionadas
                 </span>
               </div>
-
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {data.articles.map((article, i) => (
                   <NewsCard key={article.id} article={article} index={i} />
@@ -134,23 +102,14 @@ export default function Home() {
               </div>
             </>
           ) : (
-            /* Empty state */
             <div style={{ textAlign: 'center', paddingTop: '80px', paddingBottom: '80px' }}>
               <div className="section-label" style={{ display: 'inline-flex', marginBottom: '24px' }}>
                 Próxima edición
               </div>
-              <h2
-                style={{
-                  color: '#0D2645',
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 300,
-                  fontSize: '1.6rem',
-                  marginBottom: '16px',
-                }}
-              >
+              <h2 style={{ color: '#0D2645', fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '1.6rem', marginBottom: '16px' }}>
                 En preparación
               </h2>
-              <p style={{ color: '#7A7A7A', fontSize: '0.9rem', maxWidth: '380px', margin: '0 auto', lineHeight: '1.7' }}>
+              <p style={{ color: '#7A7A7A', fontSize: '0.9rem', maxWidth: '400px', margin: '0 auto', lineHeight: '1.7' }}>
                 El sistema recopila y procesa automáticamente las noticias más relevantes de arbitraje internacional cada martes y viernes a las 8:30 AM.
               </p>
             </div>
