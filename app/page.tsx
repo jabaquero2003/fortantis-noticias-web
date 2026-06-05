@@ -39,12 +39,9 @@ export default function Home() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0EBE3' }}>
       <Header />
 
-      {/* Hero — limpio, sin ondas */}
+      {/* Hero */}
       <section style={{ backgroundColor: '#0D2645', paddingTop: '56px', paddingBottom: '64px' }}>
         <div className="max-w-6xl mx-auto px-8">
-          <div className="section-label" style={{ marginBottom: '20px' }}>
-            Boletín de Noticias
-          </div>
           <h1
             style={{
               fontFamily: "'Inter', sans-serif",
@@ -60,12 +57,13 @@ export default function Home() {
           </h1>
           <div
             style={{
-              fontFamily: 'Georgia, serif',
-              fontStyle: 'italic',
-              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              fontFamily: "'Inter', sans-serif",
+              fontStyle: 'normal',
+              fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
               color: '#C17F3E',
               marginTop: '10px',
               fontWeight: 300,
+              letterSpacing: '0.01em',
             }}
           >
             Claridad rigurosa. Análisis que se sostiene.
