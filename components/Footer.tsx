@@ -1,30 +1,55 @@
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#0D2645' }} className="w-full mt-20 py-10 px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="text-center sm:text-left">
-            <span
-              style={{ color: '#C17F3E', letterSpacing: '0.25em', fontSize: '1.1rem', fontWeight: 300 }}
-              className="font-sans uppercase"
+    <footer style={{ backgroundColor: '#0D2645' }}>
+      <div style={{ height: '1px', backgroundColor: '#1E3A5F' }} />
+      <div className="max-w-6xl mx-auto px-8 py-10">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+
+          <div>
+            <div
+              style={{
+                color: '#C17F3E',
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 300,
+                fontSize: '1rem',
+                letterSpacing: '0.28em',
+                textTransform: 'uppercase',
+              }}
             >
               FORTANTIS
-            </span>
-            <p style={{ color: '#8BA0BB', fontSize: '0.75rem', marginTop: '4px' }}>
-              Inteligencia en Arbitraje Internacional
-            </p>
+            </div>
+            <div
+              style={{
+                color: '#6B88A8',
+                fontSize: '0.68rem',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                marginTop: '6px',
+              }}
+            >
+              Latam Native. Globally Minded.
+            </div>
           </div>
-          <div style={{ color: '#8BA0BB', fontSize: '0.75rem' }} className="text-center sm:text-right">
-            <p>Boletín automatizado · Martes &amp; Viernes</p>
-            <p className="mt-1">
+
+          <div style={{ color: '#6B88A8', fontSize: '0.75rem', lineHeight: '1.8' }} className="text-left sm:text-right">
+            <div>Paseo de los Tamarindos 90, Torre 2</div>
+            <div>Bosques de las Lomas · Ciudad de México</div>
+            <div style={{ marginTop: '6px' }}>
               <a href="https://fortantis.com" style={{ color: '#C17F3E' }}>fortantis.com</a>
-            </p>
+              <span style={{ color: '#3A5470', margin: '0 8px' }}>·</span>
+              <span>(+52) 55 4515 3552</span>
+            </div>
           </div>
+
         </div>
-        <div style={{ borderTop: '1px solid #1E3A5F', marginTop: '28px', paddingTop: '20px' }}>
-          <p style={{ color: '#4A6480', fontSize: '0.7rem', textAlign: 'center', letterSpacing: '0.05em' }}>
-            © {new Date().getFullYear()} Fortantis · Uso exclusivo interno · Las noticias son obtenidas de fuentes públicas verificadas
-          </p>
+
+        <div style={{ borderTop: '1px solid #1A3050', marginTop: '28px', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+          <span style={{ color: '#3A5470', fontSize: '0.65rem', letterSpacing: '0.08em', fontStyle: 'italic', fontFamily: 'Georgia, serif' }}>
+            Claridad rigurosa. Análisis que se sostiene.
+          </span>
+          <span style={{ color: '#3A5470', fontSize: '0.65rem' }}>
+            © {new Date().getFullYear()} Fortantis · Boletín automatizado
+          </span>
         </div>
       </div>
     </footer>

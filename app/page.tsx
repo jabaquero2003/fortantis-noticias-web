@@ -36,69 +36,126 @@ export default function Home() {
     : null
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0EBE3' }}>
       <Header />
 
-      <main style={{ flex: 1 }}>
-        {/* Hero */}
-        <section style={{ backgroundColor: '#0D2645', paddingBottom: '60px' }}>
-          <div className="max-w-6xl mx-auto px-8 pt-14 pb-12 text-center">
-            <p style={{ color: '#C17F3E', fontSize: '0.75rem', letterSpacing: '0.2em' }} className="uppercase font-sans mb-3">
-              Boletín de Noticias
-            </p>
-            <h1
-              style={{ color: '#FFFFFF', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 300, letterSpacing: '0.03em', lineHeight: 1.3 }}
-              className="font-sans"
-            >
-              Arbitraje Internacional
-            </h1>
-            {formattedDate && (
-              <p style={{ color: '#8BA0BB', fontSize: '0.85rem', marginTop: '12px' }}>
-                Edición #{data.edition} · {formattedDate}
-              </p>
-            )}
-            <div style={{ width: '48px', height: '2px', backgroundColor: '#C17F3E', margin: '24px auto 0' }} />
-          </div>
-        </section>
+      {/* Hero — dark navy */}
+      <section style={{ backgroundColor: '#0D2645' }}>
+        <div className="max-w-6xl mx-auto px-8 pt-16 pb-20">
 
-        {/* Wave separator */}
-        <div style={{ backgroundColor: '#F8F5F0', marginTop: '-1px' }}>
-          <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block', backgroundColor: '#0D2645' }}>
-            <path d="M0,40 L0,20 Q360,0 720,20 Q1080,40 1440,20 L1440,40 Z" fill="#F8F5F0"/>
-          </svg>
+          {/* Section label — matches presentation */}
+          <div className="section-label" style={{ marginBottom: '20px' }}>
+            Boletín de Noticias
+          </div>
+
+          <h1
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              color: '#FFFFFF',
+              letterSpacing: '0.02em',
+              lineHeight: 1.2,
+            }}
+          >
+            Arbitraje Internacional
+          </h1>
+
+          {/* Copper italic accent — like the presentation headlines */}
+          <div
+            style={{
+              fontFamily: 'Georgia, serif',
+              fontStyle: 'italic',
+              fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+              color: '#C17F3E',
+              marginTop: '8px',
+              fontWeight: 300,
+            }}
+          >
+            Claridad rigurosa. Análisis que se sostiene.
+          </div>
+
+          {formattedDate && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginTop: '28px',
+              }}
+            >
+              <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} />
+              <span style={{ color: '#6B88A8', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
+                Edición #{data.edition} · {formattedDate}
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* News section */}
-        <section style={{ backgroundColor: '#F8F5F0', paddingTop: '40px', paddingBottom: '60px' }}>
-          <div className="max-w-6xl mx-auto px-8">
-            {hasNews ? (
-              <>
-                <p style={{ color: '#9CA3AF', fontSize: '0.8rem', letterSpacing: '0.1em' }} className="uppercase font-sans mb-8 text-center">
-                  {data.articles.length} noticias seleccionadas
-                </p>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {data.articles.map((article, i) => (
-                    <NewsCard key={article.id} article={article} index={i} />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="text-center py-24">
-                <div style={{ width: '64px', height: '64px', margin: '0 auto 24px' }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#C17F3E" strokeWidth="1">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                  </svg>
-                </div>
-                <h2 style={{ color: '#0D2645', fontSize: '1.3rem', fontWeight: 300 }} className="font-sans mb-3">
-                  Próxima edición en preparación
-                </h2>
-                <p style={{ color: '#9CA3AF', fontSize: '0.9rem', maxWidth: '360px', margin: '0 auto' }}>
-                  El sistema recopila y procesa las noticias más relevantes de arbitraje internacional cada martes y viernes a las 8:30 AM.
-                </p>
+        {/* Wave to cream */}
+        <svg viewBox="0 0 1440 36" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+          <path d="M0,36 L0,18 Q360,0 720,18 Q1080,36 1440,18 L1440,36 Z" fill="#F0EBE3"/>
+        </svg>
+      </section>
+
+      {/* News section — cream */}
+      <main style={{ flex: 1, backgroundColor: '#F0EBE3', paddingTop: '40px', paddingBottom: '80px' }}>
+        <div className="max-w-6xl mx-auto px-8">
+
+          {hasNews ? (
+            <>
+              {/* Count label */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  marginBottom: '36px',
+                }}
+              >
+                <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} />
+                <span
+                  style={{
+                    color: '#9A8E84',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    fontWeight: 500,
+                  }}
+                >
+                  {data.articles.length} noticias seleccionadas esta semana
+                </span>
               </div>
-            )}
-          </div>
-        </section>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {data.articles.map((article, i) => (
+                  <NewsCard key={article.id} article={article} index={i} />
+                ))}
+              </div>
+            </>
+          ) : (
+            /* Empty state */
+            <div style={{ textAlign: 'center', paddingTop: '80px', paddingBottom: '80px' }}>
+              <div className="section-label" style={{ display: 'inline-flex', marginBottom: '24px' }}>
+                Próxima edición
+              </div>
+              <h2
+                style={{
+                  color: '#0D2645',
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 300,
+                  fontSize: '1.6rem',
+                  marginBottom: '16px',
+                }}
+              >
+                En preparación
+              </h2>
+              <p style={{ color: '#7A7A7A', fontSize: '0.9rem', maxWidth: '380px', margin: '0 auto', lineHeight: '1.7' }}>
+                El sistema recopila y procesa automáticamente las noticias más relevantes de arbitraje internacional cada martes y viernes a las 8:30 AM.
+              </p>
+            </div>
+          )}
+        </div>
       </main>
 
       <Footer />
