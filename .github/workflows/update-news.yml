@@ -1,0 +1,43 @@
+name: Fortantis — Actualización de Noticias
+
+on:
+  schedule:
+    # Martes y viernes a las 13:30 UTC = 8:30 AM Colombia (UTC-5)
+    - cron: '30 13 * * 2,5'
+  workflow_dispatch:
+    # Permite ejecución manual desde GitHub
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar actualización de noticias
+        run: npx tsx scripts/updateNews.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+
+      - name: Guardar noticias actualizadas
+        run: |
+          git config user.name "Fortantis Bot"
+          git config user.email "bot@fortantis.com"
+          git add data/news.json
+          git diff --staged --quiet || git commit -m "📰 Edición actualizada [skip ci]"
+          git push

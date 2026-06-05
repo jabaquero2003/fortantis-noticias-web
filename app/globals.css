@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0D2645;
+  --copper: #C17F3E;
+  --copper-light: #D4956A;
+  --copper-dark: #A06830;
+  --cream: #F8F5F0;
+  --gray-text: #4A4A4A;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--cream);
+  color: var(--gray-text);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+a {
+  color: var(--copper);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--copper-dark);
+}
+
+.fortantis-navy { background-color: var(--navy); }
+.fortantis-copper { color: var(--copper); }
+.fortantis-cream { background-color: var(--cream); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
