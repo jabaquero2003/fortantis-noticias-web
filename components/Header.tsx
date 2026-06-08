@@ -9,8 +9,8 @@ export default function Header() {
           <Image
             src="/logo-fortantis.png"
             alt="Fortantis"
-            width={220}
-            height={60}
+            width={260}
+            height={70}
             style={{ objectFit: 'contain' }}
             priority
           />
