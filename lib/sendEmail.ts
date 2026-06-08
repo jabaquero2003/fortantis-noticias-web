@@ -132,7 +132,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fortantis Arbitration Signal — Edición #${edition}</title>
+  <title>Noticiero Fortantis — Edición #${edition}</title>
 </head>
 <body style="margin:0;padding:0;background-color:#EDEAE4;font-family:Arial,sans-serif;">
 
@@ -140,14 +140,19 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 <tr><td align="center">
 <table width="640" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;">
 
+  <!-- HEADER con logo -->
   <tr>
-    <td style="background-color:#0D2645;padding:36px 44px 32px;">
+    <td style="background-color:#0D2645;padding:36px 44px 28px;">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td>
-            <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#C17F3E;margin-bottom:10px;">FORTANTIS</div>
-            <div style="font-family:Georgia,serif;font-size:24px;font-weight:normal;color:#FFFFFF;line-height:1.2;margin-bottom:4px;">Noticiero Fortantis</div>
-            <div style="width:40px;height:1px;background:#C17F3E;margin:14px 0;"></div>
+            <!-- Logo de Fortantis -->
+            <img src="https://fortantis-noticias-web.vercel.app/logo-fortantis.png"
+                 alt="Fortantis"
+                 width="140"
+                 style="display:block;height:auto;margin-bottom:22px;max-width:140px;" />
+            <div style="font-family:Georgia,serif;font-size:22px;font-weight:normal;color:#FFFFFF;line-height:1.2;margin-bottom:4px;">Noticiero Fortantis</div>
+            <div style="width:36px;height:1px;background:#C17F3E;margin:14px 0;"></div>
             <div style="font-family:Arial,sans-serif;font-size:11px;color:#6B88A8;">
               Edición #${edition} &nbsp;·&nbsp; ${dateStr}
             </div>
@@ -160,23 +165,26 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 
   <tr><td style="height:3px;background:#C17F3E;"></td></tr>
 
+  <!-- BOTÓN VER EN LA WEB — arriba del contenido -->
+  <tr>
+    <td style="background:#F7F4F0;padding:18px 44px;text-align:center;border-bottom:1px solid #E0D9CF;">
+      <a href="https://fortantis-noticias-web.vercel.app"
+         style="display:inline-block;background:#0D2645;color:#C17F3E;text-decoration:none;
+                padding:11px 32px;font-family:Arial,sans-serif;font-size:10px;
+                letter-spacing:3px;text-transform:uppercase;">
+        Ver edición en la web ↗
+      </a>
+    </td>
+  </tr>
+
+  <!-- CONTENIDO DEL BRIEF -->
   <tr>
     <td style="background:#FFFFFF;padding:36px 44px;">
       ${briefHtml}
     </td>
   </tr>
 
-  <tr>
-    <td style="background:#F7F4F0;padding:24px 44px;text-align:center;border-top:1px solid #E0D9CF;">
-      <a href="https://fortantis-noticias-web.vercel.app"
-         style="display:inline-block;background:#0D2645;color:#C17F3E;text-decoration:none;
-                padding:12px 36px;font-family:Arial,sans-serif;font-size:10px;
-                letter-spacing:3px;text-transform:uppercase;">
-        Ver edición en la web
-      </a>
-    </td>
-  </tr>
-
+  <!-- FOOTER -->
   <tr>
     <td style="background:#0D2645;padding:22px 44px;">
       <table width="100%" cellpadding="0" cellspacing="0">
