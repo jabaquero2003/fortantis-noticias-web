@@ -41,5 +41,5 @@ jobs:
           git config user.email "bot@fortantis.com"
           git add data/news.json data/used-articles.json
           git diff --staged --quiet || git commit -m "📰 Edición actualizada [skip ci]"
-          git pull --rebase origin main
+          git pull --rebase -X theirs origin main
           git push
