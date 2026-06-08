@@ -17,6 +17,7 @@
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {
+    "@octokit/rest": "^22.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -25,6 +26,7 @@
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
+    "tweetsodium": "^0.0.4",
     "typescript": "^5"
   }
 }
