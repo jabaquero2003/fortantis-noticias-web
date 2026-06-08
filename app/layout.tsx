@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: 'Fortantis · Arbitraje Internacional',
   description: 'Boletín de noticias de arbitraje internacional de Fortantis. Actualizado cada martes y viernes con las noticias más relevantes a nivel global.',
   keywords: 'arbitraje internacional, arbitration, ICSID, ICC, UNCITRAL, Fortantis, noticias arbitraje',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
   openGraph: {
     title: 'Fortantis · Noticias de Arbitraje Internacional',
     description: 'Las noticias más relevantes de arbitraje internacional, curadas y resumidas por Fortantis.',
