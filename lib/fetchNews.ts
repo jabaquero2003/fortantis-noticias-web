@@ -60,7 +60,7 @@ function fetchWithHardTimeout(url: string): Promise<Parser.Output<Record<string,
 
 export async function fetchAllNews(): Promise<RawArticle[]> {
   const cutoff = new Date()
-  cutoff.setDate(cutoff.getDate() - 5)
+  cutoff.setDate(cutoff.getDate() - 10)
 
   const results = await Promise.allSettled(
     RSS_SOURCES.map(async (source) => {
