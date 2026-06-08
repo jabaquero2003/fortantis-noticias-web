@@ -1,7 +1,7 @@
 import Parser from 'rss-parser'
 
 const parser = new Parser({
-  timeout: 15000,
+  timeout: 10000,
   headers: { 'User-Agent': 'Fortantis-NewsBot/1.0' },
 })
 
@@ -22,23 +22,8 @@ const RSS_SOURCES = [
     category: 'Doctrina y Análisis',
   },
   {
-    name: 'ICSID — World Bank',
-    url: 'https://icsid.worldbank.org/sites/default/files/feed/cases.xml',
-    category: 'Inversión Internacional',
-  },
-  {
-    name: 'Völkerrechtsblog — Arbitration',
-    url: 'https://voelkerrechtsblog.org/feed/',
-    category: 'Doctrina y Análisis',
-  },
-  {
     name: 'JD Supra — International Arbitration',
     url: 'https://www.jdsupra.com/topics/international-arbitration/rss/',
-    category: 'Noticias Legales',
-  },
-  {
-    name: 'Lexology — Arbitration',
-    url: 'https://www.lexology.com/rss/hub.ashx?si=40d5f47d-51d5-4aef-8f56-48c03069c3ec',
     category: 'Noticias Legales',
   },
 ]
@@ -52,19 +37,39 @@ export interface RawArticle {
   category: string
 }
 
-export async function fetchAllNews(): Promise<RawArticle[]> {
-  const articles: RawArticle[] = []
-  const twoDaysAgo = new Date()
-  twoDaysAgo.setDate(twoDaysAgo.getDate() - 5)
+const FETCH_TIMEOUT_MS = 12000
 
-  for (const source of RSS_SOURCES) {
-    try {
-      const feed = await parser.parseURL(source.url)
+function fetchWithHardTimeout(url: string): Promise<Parser.Output<Record<string, unknown>>> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`Timeout after ${FETCH_TIMEOUT_MS}ms`)),
+      FETCH_TIMEOUT_MS
+    )
+    parser
+      .parseURL(url)
+      .then((feed) => {
+        clearTimeout(timer)
+        resolve(feed)
+      })
+      .catch((err) => {
+        clearTimeout(timer)
+        reject(err)
+      })
+  })
+}
+
+export async function fetchAllNews(): Promise<RawArticle[]> {
+  const cutoff = new Date()
+  cutoff.setDate(cutoff.getDate() - 5)
+
+  const results = await Promise.allSettled(
+    RSS_SOURCES.map(async (source) => {
+      const feed = await fetchWithHardTimeout(source.url)
       const recent = feed.items.filter((item) => {
         if (!item.pubDate) return true
-        return new Date(item.pubDate) > twoDaysAgo
+        return new Date(item.pubDate) > cutoff
       })
-
+      const articles: RawArticle[] = []
       for (const item of recent.slice(0, 6)) {
         if (!item.title || !item.link) continue
         articles.push({
@@ -76,12 +81,20 @@ export async function fetchAllNews(): Promise<RawArticle[]> {
           category: source.category,
         })
       }
+      console.log(`   ✓ ${source.name}: ${recent.length} artículos`)
+      return articles
+    })
+  )
 
-      console.log(`✓ ${source.name}: ${recent.length} artículos`)
-    } catch (err) {
-      console.warn(`✗ ${source.name}: ${(err as Error).message}`)
+  const articles: RawArticle[] = []
+  RSS_SOURCES.forEach((source, i) => {
+    const result = results[i]
+    if (result.status === 'fulfilled') {
+      articles.push(...result.value)
+    } else {
+      console.warn(`   ✗ ${source.name}: ${result.reason?.message ?? 'Error desconocido'}`)
     }
-  }
+  })
 
   return articles
 }
