@@ -46,7 +46,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
           <tr>
             <td>
               <div style="font-family:Georgia,serif;font-size:15px;font-weight:normal;color:#0D2645;line-height:1.4;margin-bottom:6px;">
-                <span style="color:#C17F3E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-right:8px;">Signal ${i + 1}</span>
+                <span style="color:#C17F3E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-right:8px;">Señal ${i + 1}</span>
                 ${article.title}
               </div>
             </td>

@@ -141,7 +141,10 @@ async function main() {
   try {
     await sendNewsEmail(brief, nextEdition)
   } catch (emailErr) {
-    console.warn('Correo no enviado:', (emailErr as Error).message)
+    const msg = (emailErr as Error).message
+    console.error('ERROR CORREO:', msg)
+    console.error('   GMAIL_USER configurado:', process.env.GMAIL_USER ? 'SÍ' : 'NO')
+    console.error('   GMAIL_APP_PASSWORD configurado:', process.env.GMAIL_APP_PASSWORD ? 'SÍ' : 'NO')
     console.warn('   La página web se actualizará de todas formas.')
   }
 
