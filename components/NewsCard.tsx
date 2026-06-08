@@ -6,6 +6,8 @@ interface Article {
   sourceUrl: string
   publishedAt: string
   category: string
+  whyItMatters?: string
+  angleToMonitor?: string
 }
 
 export default function NewsCard({ article, index }: { article: Article; index: number }) {
@@ -20,7 +22,7 @@ export default function NewsCard({ article, index }: { article: Article; index: 
     >
       <div style={{ padding: '28px 28px 24px' }} className="flex flex-col flex-1">
 
-        {/* Category label — matches presentation style */}
+        {/* Category */}
         <div className="section-label" style={{ marginBottom: '16px' }}>
           {article.category}
         </div>
@@ -33,8 +35,7 @@ export default function NewsCard({ article, index }: { article: Article; index: 
             fontWeight: 400,
             lineHeight: '1.45',
             fontFamily: "'Inter', sans-serif",
-            flex: 1,
-            marginBottom: '14px',
+            marginBottom: '12px',
           }}
         >
           {article.title}
@@ -46,11 +47,46 @@ export default function NewsCard({ article, index }: { article: Article; index: 
             color: '#4A4A4A',
             fontSize: '0.845rem',
             lineHeight: '1.7',
-            marginBottom: '22px',
+            marginBottom: article.whyItMatters ? '18px' : '22px',
+            flex: 1,
           }}
         >
           {article.summary}
         </p>
+
+        {/* Why it matters — only if present */}
+        {article.whyItMatters && (
+          <div
+            style={{
+              borderLeft: '2px solid #C17F3E',
+              paddingLeft: '12px',
+              marginBottom: '18px',
+            }}
+          >
+            <div
+              style={{
+                color: '#9A8E84',
+                fontSize: '0.62rem',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+                marginBottom: '4px',
+              }}
+            >
+              Por qué importa
+            </div>
+            <p
+              style={{
+                color: '#5A5A5A',
+                fontSize: '0.78rem',
+                lineHeight: '1.6',
+                margin: 0,
+              }}
+            >
+              {article.whyItMatters}
+            </p>
+          </div>
+        )}
 
         {/* Footer */}
         <div
@@ -68,7 +104,8 @@ export default function NewsCard({ article, index }: { article: Article; index: 
             </span>
             <span style={{ color: '#ABABAB', fontSize: '0.68rem' }}>
               {new Date(article.publishedAt).toLocaleDateString('es-ES', {
-                day: 'numeric', month: 'long',
+                day: 'numeric',
+                month: 'long',
               })}
             </span>
           </div>
@@ -89,8 +126,8 @@ export default function NewsCard({ article, index }: { article: Article; index: 
           >
             Fuente
             <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="7" y1="17" x2="17" y2="7"/>
-              <polyline points="7 7 17 7 17 17"/>
+              <line x1="7" y1="17" x2="17" y2="7" />
+              <polyline points="7 7 17 7 17 17" />
             </svg>
           </a>
         </div>
