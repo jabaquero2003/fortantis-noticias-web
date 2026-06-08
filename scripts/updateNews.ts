@@ -34,12 +34,18 @@ async function main() {
   console.log(`✓ data/news.json actualizado — Edición #${nextEdition}`)
 
   console.log('\n📧 Enviando correo al equipo Fortantis...')
-  await sendNewsEmail(curated, nextEdition)
+  try {
+    await sendNewsEmail(curated, nextEdition)
+    console.log('✓ Correo enviado exitosamente')
+  } catch (emailErr) {
+    console.warn('⚠️  Correo no enviado (dominio no verificado en Resend):', (emailErr as Error).message)
+    console.warn('   → La página web se actualizará de todas formas.')
+  }
 
-  console.log('\n✅ Proceso completado exitosamente\n')
+  console.log('\n✅ Proceso completado\n')
 }
 
 main().catch((err) => {
-  console.error('❌ Error:', err)
+  console.error('❌ Error fatal:', err)
   process.exit(1)
 })

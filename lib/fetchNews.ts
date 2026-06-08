@@ -7,29 +7,9 @@ const parser = new Parser({
 
 const RSS_SOURCES = [
   {
-    name: 'Kluwer Arbitration Blog',
-    url: 'https://arbitrationblog.kluwerarbitration.com/feed/',
-    category: 'Doctrina y Análisis',
-  },
-  {
-    name: 'JD Supra — Arbitraje',
-    url: 'https://www.jdsupra.com/topics/international-arbitration/?feed=rss',
-    category: 'Noticias Legales',
-  },
-  {
-    name: 'Lexology — Arbitration',
-    url: 'https://www.lexology.com/api/rss/topic?topic=arbitration',
-    category: 'Noticias Legales',
-  },
-  {
     name: 'Global Arbitration Review',
     url: 'https://globalarbitrationreview.com/rss',
     category: 'Arbitraje Internacional',
-  },
-  {
-    name: 'ICSID — Banco Mundial',
-    url: 'https://icsid.worldbank.org/news/rss',
-    category: 'Inversión Internacional',
   },
   {
     name: 'ICC — Arbitration',
@@ -37,9 +17,29 @@ const RSS_SOURCES = [
     category: 'Institucional',
   },
   {
-    name: 'Investment Claims',
-    url: 'https://www.investmentclaims.com/feed',
+    name: 'Kluwer Arbitration Blog',
+    url: 'https://arbitrationblog.kluwerarbitration.com/feed',
+    category: 'Doctrina y Análisis',
+  },
+  {
+    name: 'ICSID — World Bank',
+    url: 'https://icsid.worldbank.org/sites/default/files/feed/cases.xml',
     category: 'Inversión Internacional',
+  },
+  {
+    name: 'Völkerrechtsblog — Arbitration',
+    url: 'https://voelkerrechtsblog.org/feed/',
+    category: 'Doctrina y Análisis',
+  },
+  {
+    name: 'JD Supra — International Arbitration',
+    url: 'https://www.jdsupra.com/topics/international-arbitration/rss/',
+    category: 'Noticias Legales',
+  },
+  {
+    name: 'Lexology — Arbitration',
+    url: 'https://www.lexology.com/rss/hub.ashx?si=40d5f47d-51d5-4aef-8f56-48c03069c3ec',
+    category: 'Noticias Legales',
   },
 ]
 
