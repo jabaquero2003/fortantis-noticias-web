@@ -1,13 +1,19 @@
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { BriefResult } from './summarizeNews'
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 const RECIPIENTS = [
   'jose.baquero@fortantis.com',
   'samuel.garciacuellar@fortantis.com',
   'juan.olivera@fortantis.com',
 ]
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+})
 
 function processInline(text: string): string {
   return text
@@ -27,7 +33,6 @@ function briefToHtml(markdown: string): string {
 
   const lines = markdown.split('\n')
   const parts: string[] = []
-  let i = 0
   let listItems: string[] = []
 
   function flushList() {
@@ -47,8 +52,7 @@ function briefToHtml(markdown: string): string {
     }
   }
 
-  while (i < lines.length) {
-    const line = lines[i]
+  for (const line of lines) {
     const trimmed = line.trim()
 
     if (!trimmed.startsWith('* ') && !trimmed.startsWith('- ')) {
@@ -78,7 +82,7 @@ function briefToHtml(markdown: string): string {
       )
     } else if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
       listItems.push(processInline(trimmed.slice(2)))
-    } else if (trimmed === '') {
+    } else if (trimmed === '' || trimmed === '---') {
       parts.push(`<div style="height:6px;"></div>`)
     } else if (/^\*\*[^*]+:\*\*/.test(trimmed)) {
       const match = trimmed.match(/^\*\*([^*]+):\*\*\s*(.*)/)
@@ -113,8 +117,6 @@ function briefToHtml(markdown: string): string {
         )
       }
     }
-
-    i++
   }
 
   flushList()
@@ -129,16 +131,14 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
   <title>Fortantis Arbitration Signal — Edición #${edition}</title>
 </head>
-<body style="margin:0;padding:0;background-color:#EDEAE4;font-family:Arial,sans-serif;-webkit-text-size-adjust:100%;">
+<body style="margin:0;padding:0;background-color:#EDEAE4;font-family:Arial,sans-serif;">
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EDEAE4;padding:28px 12px;">
 <tr><td align="center">
 <table width="640" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;">
 
-  <!-- HEADER -->
   <tr>
     <td style="background-color:#0D2645;padding:36px 44px 32px;">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -147,7 +147,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
             <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#C17F3E;margin-bottom:10px;">FORTANTIS</div>
             <div style="font-family:Georgia,serif;font-size:24px;font-weight:normal;color:#FFFFFF;line-height:1.2;margin-bottom:4px;">Arbitration Signal</div>
             <div style="width:40px;height:1px;background:#C17F3E;margin:14px 0;"></div>
-            <div style="font-family:Arial,sans-serif;font-size:11px;color:#6B88A8;letter-spacing:0.5px;">
+            <div style="font-family:Arial,sans-serif;font-size:11px;color:#6B88A8;">
               Edición #${edition} &nbsp;·&nbsp; ${dateStr}
             </div>
             <div style="font-family:Arial,sans-serif;font-size:10px;color:#3A5470;margin-top:4px;letter-spacing:1px;text-transform:uppercase;">Brief interno automatizado</div>
@@ -157,17 +157,14 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
     </td>
   </tr>
 
-  <!-- 3px copper line -->
   <tr><td style="height:3px;background:#C17F3E;"></td></tr>
 
-  <!-- BRIEF CONTENT -->
   <tr>
     <td style="background:#FFFFFF;padding:36px 44px;">
       ${briefHtml}
     </td>
   </tr>
 
-  <!-- CTA -->
   <tr>
     <td style="background:#F7F4F0;padding:24px 44px;text-align:center;border-top:1px solid #E0D9CF;">
       <a href="https://noticias.fortantis.com"
@@ -179,7 +176,6 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
     </td>
   </tr>
 
-  <!-- FOOTER -->
   <tr>
     <td style="background:#0D2645;padding:22px 44px;">
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -221,13 +217,12 @@ export async function sendNewsEmail(brief: BriefResult, edition: number): Promis
   const dayLabel = dayNum === 2 ? 'Martes' : dayNum === 5 ? 'Viernes' : ''
   const subject = `Arbitration Signal #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
 
-  const { data, error } = await resend.emails.send({
-    from: 'Fortantis Signal <onboarding@resend.dev>',
-    to: RECIPIENTS,
+  await transporter.sendMail({
+    from: `"Fortantis Signal" <${process.env.GMAIL_USER}>`,
+    to: RECIPIENTS.join(', '),
     subject,
     html,
   })
 
-  if (error) throw new Error(`Error enviando correo: ${JSON.stringify(error)}`)
-  console.log(`   ✓ Correo enviado: ${data?.id}`)
+  console.log(`   Correo enviado a ${RECIPIENTS.length} destinatarios`)
 }
