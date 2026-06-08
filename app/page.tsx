@@ -27,16 +27,17 @@ interface NewsData {
 
 const data = newsData as NewsData
 
-function SectionLabel({ children }: { children: string }) {
+function SectionLabel({ children, light = false }: { children: string; light?: boolean }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-      <div style={{ width: '20px', height: '1px', backgroundColor: '#C17F3E' }} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px' }}>
+      <div style={{ width: '24px', height: '2px', backgroundColor: '#C17F3E', flexShrink: 0 }} />
       <span style={{
-        color: '#9A8E84',
-        fontSize: '0.62rem',
-        letterSpacing: '0.2em',
+        color: light ? '#6B88A8' : '#9A8E84',
+        fontSize: '0.6rem',
+        letterSpacing: '0.22em',
         textTransform: 'uppercase',
-        fontWeight: 600,
+        fontWeight: 700,
+        fontFamily: "'Inter', sans-serif",
       }}>
         {children}
       </span>
@@ -44,18 +45,23 @@ function SectionLabel({ children }: { children: string }) {
   )
 }
 
-function extractBriefSection(briefText: string, sectionNumber: number): string {
-  const marker = `## ${sectionNumber}.`
-  const nextMarker = `## ${sectionNumber + 1}.`
+function extractBriefSection(briefText: string, marker: string, nextMarker: string): string {
   const start = briefText.indexOf(marker)
   if (start === -1) return ''
-  const end = briefText.indexOf(nextMarker)
+  const end = nextMarker ? briefText.indexOf(nextMarker, start + marker.length) : -1
   const raw = end === -1 ? briefText.slice(start) : briefText.slice(start, end)
   const firstNewline = raw.indexOf('\n')
   return firstNewline === -1 ? '' : raw.slice(firstNewline).trim()
 }
 
-function renderBriefSection(text: string): React.ReactNode[] {
+function parseInline(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#0D2645;font-weight:600;">$1</strong>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#C17F3E;text-decoration:none;border-bottom:1px solid rgba(193,127,62,0.3);">$1</a>')
+}
+
+function renderSection(text: string): React.ReactNode[] {
   if (!text) return []
   const lines = text.split('\n')
   const nodes: React.ReactNode[] = []
@@ -63,25 +69,18 @@ function renderBriefSection(text: string): React.ReactNode[] {
   let listItems: string[] = []
 
   function flushList() {
-    if (listItems.length > 0) {
-      nodes.push(
-        <ul key={key++} style={{ margin: '8px 0 16px 0', paddingLeft: '0', listStyle: 'none' }}>
-          {listItems.map((item, i) => (
-            <li key={i} style={{
-              fontSize: '0.88rem',
-              color: '#4A4A4A',
-              lineHeight: '1.7',
-              paddingLeft: '16px',
-              borderLeft: '2px solid #E8E0D5',
-              marginBottom: '6px',
-            }}
-              dangerouslySetInnerHTML={{ __html: parseInline(item) }}
-            />
-          ))}
-        </ul>
-      )
-      listItems = []
-    }
+    if (listItems.length === 0) return
+    nodes.push(
+      <ul key={key++} style={{ margin: '10px 0 20px', padding: 0, listStyle: 'none' }}>
+        {listItems.map((item, i) => (
+          <li key={i} style={{
+            fontSize: '0.87rem', color: '#4A4A4A', lineHeight: '1.7',
+            padding: '6px 0 6px 18px', borderLeft: '2px solid #E8E0D5', marginBottom: '6px',
+          }} dangerouslySetInnerHTML={{ __html: parseInline(item) }} />
+        ))}
+      </ul>
+    )
+    listItems = []
   }
 
   for (const line of lines) {
@@ -89,44 +88,28 @@ function renderBriefSection(text: string): React.ReactNode[] {
     if (!trimmed.startsWith('* ') && !trimmed.startsWith('- ')) flushList()
 
     if (trimmed.startsWith('### ')) {
-      const text = parseInline(trimmed.slice(4))
+      const content = parseInline(trimmed.slice(4))
       nodes.push(
         <h3 key={key++} style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '0.95rem',
-          fontWeight: 600,
-          color: '#0D2645',
-          marginTop: '28px',
-          marginBottom: '10px',
-          paddingBottom: '8px',
-          borderBottom: '1px solid #E8E0D5',
-        }} dangerouslySetInnerHTML={{ __html: text }} />
+          fontFamily: "'Inter', sans-serif", fontSize: '0.88rem', fontWeight: 600,
+          color: '#0D2645', marginTop: '28px', marginBottom: '10px',
+          paddingBottom: '8px', borderBottom: '1px solid #E8E0D5',
+        }} dangerouslySetInnerHTML={{ __html: content }} />
       )
     } else if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
       listItems.push(parseInline(trimmed.slice(2)))
     } else if (trimmed === '' || trimmed === '---') {
-      nodes.push(<div key={key++} style={{ height: '6px' }} />)
-    } else if (/^\*\*[^*]+:\*\*/.test(trimmed)) {
-      const match = trimmed.match(/^\*\*([^*]+):\*\*\s*(.*)/)
-      if (match) {
-        nodes.push(
-          <div key={key++} style={{ display: 'flex', gap: '8px', marginBottom: '4px', alignItems: 'baseline' }}>
-            <span style={{ fontSize: '0.62rem', color: '#9A8E84', textTransform: 'uppercase', letterSpacing: '1px', whiteSpace: 'nowrap', paddingTop: '2px' }}>
-              {match[1]}
-            </span>
-            <span style={{ fontSize: '0.85rem', color: '#0D2645' }}
-              dangerouslySetInnerHTML={{ __html: parseInline(match[2]) }} />
-          </div>
-        )
-      }
+      nodes.push(<div key={key++} style={{ height: '8px' }} />)
+    } else if (trimmed.startsWith('**Fuente:**') || trimmed.startsWith('**Fuente:')) {
+      nodes.push(
+        <div key={key++} style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', margin: '8px 0 12px', fontSize: '0.75rem', color: '#9A8E84' }}
+          dangerouslySetInnerHTML={{ __html: parseInline(trimmed) }} />
+      )
     } else if (trimmed) {
       nodes.push(
         <p key={key++} style={{
-          fontSize: '0.88rem',
-          color: '#4A4A4A',
-          lineHeight: '1.75',
-          margin: '6px 0 10px',
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Inter', sans-serif", fontSize: '0.875rem', color: '#4A4A4A',
+          lineHeight: '1.78', margin: '6px 0 12px',
         }} dangerouslySetInnerHTML={{ __html: parseInline(trimmed) }} />
       )
     }
@@ -135,15 +118,15 @@ function renderBriefSection(text: string): React.ReactNode[] {
   return nodes
 }
 
-function parseInline(text: string): string {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#0D2645;font-weight:600;">$1</strong>')
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#C17F3E;text-decoration:none;border-bottom:1px solid #E8C88E;">$1</a>')
+function editionLabel(lastUpdated: string): string {
+  const date = new Date(lastUpdated)
+  const day = date.getDay() // 0=Sun, 1=Mon, 2=Tue, ..., 5=Fri
+  if (day === 2 || day === 5) return ''
+  return process.env.NODE_ENV === 'production' ? 'Edición Especial' : 'Edición de Prueba'
 }
 
 export default function Home() {
-  const hasNews = data.articles.length > 0
+  const hasNews = data.articles && data.articles.length > 0
 
   const formattedDate = data.lastUpdated
     ? new Date(data.lastUpdated).toLocaleDateString('es-ES', {
@@ -151,43 +134,49 @@ export default function Home() {
       })
     : null
 
-  const latamText = data.briefText ? extractBriefSection(data.briefText, 3) : ''
-  const quantumText = data.briefText ? extractBriefSection(data.briefText, 4) : ''
-  const firmasText = data.briefText ? extractBriefSection(data.briefText, 5) : ''
-  const oportunidadText = data.briefText ? extractBriefSection(data.briefText, 6) : ''
-  const sourcesText = data.briefText ? extractBriefSection(data.briefText, 7) : ''
+  const label = data.lastUpdated ? editionLabel(data.lastUpdated) : null
+
+  const top3 = data.articles ? data.articles.slice(0, 3) : []
+
+  const briefText = data.briefText ?? ''
+
+  const signalsText  = extractBriefSection(briefText, '## 2.', '## 3.')
+  const latamText    = extractBriefSection(briefText, '## 3.', '## 4.')
+  const quantumText  = extractBriefSection(briefText, '## 4.', '## 5.')
+  const firmasText   = extractBriefSection(briefText, '## 5.', '## 6.')
+  const oportunText  = extractBriefSection(briefText, '## 6.', '## 7.')
+  const sourcesText  = extractBriefSection(briefText, '## 7.', '')
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0EBE3' }}>
       <Header />
 
-      {/* Hero */}
-      <section style={{ backgroundColor: '#0D2645', padding: '60px 0 68px' }}>
-        <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 40px' }}>
+      {/* HERO */}
+      <section style={{ backgroundColor: '#0D2645', padding: '56px 0 64px' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 40px' }}>
+          {label && (
+            <div style={{
+              display: 'inline-block', border: '1px solid #C17F3E', color: '#C17F3E',
+              fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+              padding: '4px 12px', marginBottom: '20px', fontFamily: "'Inter', sans-serif",
+            }}>
+              {label}
+            </div>
+          )}
           <h1 style={{
-            fontFamily: "'Inter', sans-serif",
-            fontWeight: 300,
-            fontSize: 'clamp(2rem, 4.5vw, 2.8rem)',
-            color: '#FFFFFF',
-            letterSpacing: '0.02em',
-            lineHeight: 1.2,
-            margin: 0,
+            fontFamily: "'Inter', sans-serif", fontWeight: 200,
+            fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#FFFFFF',
+            letterSpacing: '0.04em', lineHeight: 1.15, margin: 0,
           }}>
-            Arbitraje Internacional
+            Noticiero Fortantis
           </h1>
-          <div style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: 'clamp(0.9rem, 1.8vw, 1.1rem)',
-            color: '#C17F3E',
-            marginTop: '10px',
-            fontWeight: 300,
-          }}>
+          <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#C17F3E', marginTop: '10px', fontWeight: 300, letterSpacing: '0.03em' }}>
             Claridad rigurosa. Análisis que se sostiene.
           </div>
           {formattedDate && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '28px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '24px' }}>
               <div style={{ width: '20px', height: '1px', backgroundColor: '#C17F3E' }} />
-              <span style={{ color: '#6B88A8', fontSize: '0.75rem', letterSpacing: '0.06em' }}>
+              <span style={{ color: '#4A6A8A', fontSize: '0.72rem', letterSpacing: '0.06em', fontFamily: "'Inter', sans-serif" }}>
                 Edición #{data.edition} · {formattedDate}
               </span>
             </div>
@@ -199,19 +188,16 @@ export default function Home() {
 
       {hasNews ? (
         <>
-          {/* Apertura */}
+          {/* MORNING BRIEF */}
           {data.morningBrief && (
-            <section style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '48px 40px' }}>
-                <SectionLabel>Apertura</SectionLabel>
+            <section style={{ backgroundColor: '#FFFFFF' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 40px' }}>
+                <SectionLabel>Morning Brief</SectionLabel>
                 <p style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: 'clamp(0.92rem, 1.4vw, 1.02rem)',
-                  color: '#2A2A2A',
-                  lineHeight: 1.85,
-                  maxWidth: '760px',
-                  margin: 0,
-                  fontWeight: 300,
+                  fontSize: 'clamp(0.92rem, 1.3vw, 1.02rem)',
+                  color: '#2A2A2A', lineHeight: 1.85, maxWidth: '720px',
+                  margin: 0, fontWeight: 300,
                 }}>
                   {data.morningBrief}
                 </p>
@@ -219,89 +205,103 @@ export default function Home() {
             </section>
           )}
 
-          {/* Señales Principales */}
-          <section style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
-            <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 40px' }}>
+          {/* TOP 3 SIGNALS — tarjetas resumen */}
+          <section style={{ backgroundColor: '#F0EBE3', padding: '52px 0 20px' }}>
+            <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 40px' }}>
               <SectionLabel>Señales Principales</SectionLabel>
-              <div style={{ display: 'grid', gap: '20px', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
-                {data.articles.map((article, i) => (
-                  <NewsCard key={article.id} article={article} index={i} />
+              <div style={{
+                display: 'grid', gap: '22px',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              }}>
+                {top3.map((article, i) => (
+                  <NewsCard key={article.id} article={article} index={i} signalNumber={i + 1} />
                 ))}
               </div>
             </div>
           </section>
 
-          {/* LatAm Radar */}
+          {/* ANÁLISIS COMPLETO DE LAS SEÑALES — texto completo para leer en la página */}
+          {signalsText && (
+            <section style={{ backgroundColor: '#F0EBE3', padding: '20px 0 60px' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 40px' }}>
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(signalsText)}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* LATAM RADAR */}
           {latamText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '48px 40px' }}>
+            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>LatAm Radar</SectionLabel>
-                <div style={{ maxWidth: '760px' }}>
-                  {renderBriefSection(latamText)}
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(latamText)}
                 </div>
               </div>
             </section>
           )}
 
-          {/* Quantum & Daños */}
+          {/* QUANTUM & DAÑOS */}
           {quantumText && (
-            <section style={{ backgroundColor: '#F7F4F0', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '48px 40px' }}>
+            <section style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Quantum & Daños</SectionLabel>
-                <div style={{ maxWidth: '760px' }}>
-                  {renderBriefSection(quantumText)}
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(quantumText)}
                 </div>
               </div>
             </section>
           )}
 
-          {/* Firmas e Instituciones */}
+          {/* FIRMAS E INSTITUCIONES */}
           {firmasText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '48px 40px' }}>
+            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Firmas e Instituciones</SectionLabel>
-                <div style={{ maxWidth: '760px' }}>
-                  {renderBriefSection(firmasText)}
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(firmasText)}
                 </div>
               </div>
             </section>
           )}
 
-          {/* Oportunidad de Contenido */}
-          {oportunidadText && (
-            <section style={{ backgroundColor: '#F7F4F0', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '48px 40px' }}>
+          {/* OPORTUNIDAD DE CONTENIDO */}
+          {oportunText && (
+            <section style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Oportunidad de Contenido</SectionLabel>
-                <div style={{ maxWidth: '760px' }}>
-                  {renderBriefSection(oportunidadText)}
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(oportunText)}
                 </div>
               </div>
             </section>
           )}
 
-          {/* Fuentes */}
+          {/* FUENTES */}
           {sourcesText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid #E8E0D5' }}>
-              <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '40px 40px' }}>
+            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+              <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 40px 52px' }}>
                 <SectionLabel>Fuentes</SectionLabel>
-                <div style={{ maxWidth: '760px' }}>
-                  {renderBriefSection(sourcesText)}
+                <div style={{ maxWidth: '740px' }}>
+                  {renderSection(sourcesText)}
                 </div>
               </div>
             </section>
           )}
         </>
       ) : (
-        <main style={{ flex: 1, backgroundColor: '#F0EBE3', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 40px' }}>
+        <main style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 40px' }}>
           <div style={{ textAlign: 'center' }}>
-            <div className="section-label" style={{ display: 'inline-flex', marginBottom: '24px' }}>
+            <div style={{ color: '#C17F3E', fontSize: '0.6rem', letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '20px' }}>
               Próxima edición
             </div>
-            <h2 style={{ color: '#0D2645', fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '1.5rem', marginBottom: '16px' }}>
+            <h2 style={{ color: '#0D2645', fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '1.4rem', marginBottom: '14px' }}>
               En preparación
             </h2>
-            <p style={{ color: '#7A7A7A', fontSize: '0.88rem', maxWidth: '380px', margin: '0 auto', lineHeight: '1.75' }}>
-              El sistema publica automáticamente las noticias más relevantes de arbitraje internacional cada martes y viernes a las 8:30 AM.
+            <p style={{ color: '#7A7A7A', fontSize: '0.86rem', maxWidth: '360px', margin: '0 auto', lineHeight: '1.75' }}>
+              El sistema publica automáticamente cada martes y viernes a las 8:30 AM.
             </p>
           </div>
         </main>

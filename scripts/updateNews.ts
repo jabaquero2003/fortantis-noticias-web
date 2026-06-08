@@ -1,14 +1,12 @@
 import { fetchAllNews } from '../lib/fetchNews'
 import { curateAndSummarize } from '../lib/summarizeNews'
 import { sendNewsEmail } from '../lib/sendEmail'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { join } from 'path'
 
-// Normaliza URLs para comparar: quita parámetros UTM, trailing slash, lowercase
 function normalizeUrl(url: string): string {
   try {
     const u = new URL(url)
-    // Eliminar parámetros de tracking comunes
     const trackingParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'source']
     trackingParams.forEach((p) => u.searchParams.delete(p))
     return (u.origin + u.pathname).toLowerCase().replace(/\/$/, '')
@@ -17,7 +15,6 @@ function normalizeUrl(url: string): string {
   }
 }
 
-// Normaliza títulos para comparar: lowercase, quita signos, colapsa espacios
 function normalizeTitle(title: string): string {
   return title
     .toLowerCase()
@@ -27,9 +24,12 @@ function normalizeTitle(title: string): string {
     .slice(0, 120)
 }
 
-interface HistoryEntry {
-  normalizedUrl: string
+interface UsedArticle {
+  title: string
   normalizedTitle: string
+  url: string
+  normalizedUrl: string
+  source: string
   dateUsed: string
   editionId: number
 }
@@ -38,32 +38,54 @@ async function main() {
   console.log('\n Fortantis — Actualización de noticias de arbitraje\n')
 
   const dataPath = join(process.cwd(), 'data', 'news.json')
+  const usedArticlesPath = join(process.cwd(), 'data', 'used-articles.json')
+
   const current = JSON.parse(readFileSync(dataPath, 'utf-8'))
   const nextEdition = (current.edition ?? 0) + 1
 
-  // Historial de deduplicación (URLs y títulos normalizados de ediciones anteriores)
-  const history: HistoryEntry[] = current.history ?? []
-  const usedNormalizedUrls = new Set(history.map((h) => h.normalizedUrl))
-  const usedNormalizedTitles = new Set(history.map((h) => h.normalizedTitle))
-
-  // Retrocompatibilidad: si hay publishedUrls pero no history, migrar
-  if (history.length === 0 && current.publishedUrls?.length > 0) {
-    for (const url of current.publishedUrls as string[]) {
-      usedNormalizedUrls.add(normalizeUrl(url))
+  // Cargar historial de artículos usados
+  let usedArticles: UsedArticle[] = []
+  if (existsSync(usedArticlesPath)) {
+    try {
+      usedArticles = JSON.parse(readFileSync(usedArticlesPath, 'utf-8'))
+    } catch {
+      usedArticles = []
     }
-    console.log(`   Migradas ${current.publishedUrls.length} URLs del historial anterior`)
   }
+
+  // Retrocompatibilidad: migrar history del news.json anterior si existe
+  if (usedArticles.length === 0 && current.history?.length > 0) {
+    usedArticles = (current.history as UsedArticle[]).map((h) => ({
+      title: h.title ?? '',
+      normalizedTitle: h.normalizedTitle ?? '',
+      url: h.url ?? '',
+      normalizedUrl: h.normalizedUrl ?? '',
+      source: h.source ?? '',
+      dateUsed: h.dateUsed ?? '',
+      editionId: h.editionId ?? 0,
+    }))
+    console.log(`   Migradas ${usedArticles.length} entradas del historial anterior`)
+  }
+
+  // Retrocompatibilidad: migrar publishedUrls si no hay history ni used-articles
+  if (usedArticles.length === 0 && current.publishedUrls?.length > 0) {
+    usedArticles = (current.publishedUrls as string[]).map((url) => ({
+      title: '', normalizedTitle: '', url, normalizedUrl: normalizeUrl(url),
+      source: '', dateUsed: '', editionId: 0,
+    }))
+    console.log(`   Migradas ${usedArticles.length} URLs del historial legacy`)
+  }
+
+  const usedNormalizedUrls = new Set(usedArticles.map((a) => a.normalizedUrl).filter(Boolean))
+  const usedNormalizedTitles = new Set(usedArticles.map((a) => a.normalizedTitle).filter(Boolean))
 
   console.log('Obteniendo noticias de fuentes RSS...')
   const allRaw = await fetchAllNews()
   console.log(`   Total obtenido: ${allRaw.length} artículos`)
 
-  // Filtrar artículos ya publicados — por URL normalizada primero, luego por título
   const freshRaw = allRaw.filter((a) => {
-    const normUrl = normalizeUrl(a.link)
-    const normTitle = normalizeTitle(a.title)
-    if (usedNormalizedUrls.has(normUrl)) return false
-    if (usedNormalizedTitles.has(normTitle)) return false
+    if (usedNormalizedUrls.has(normalizeUrl(a.link))) return false
+    if (usedNormalizedTitles.has(normalizeTitle(a.title))) return false
     return true
   })
 
@@ -85,28 +107,35 @@ async function main() {
 
   const today = new Date().toISOString()
 
-  // Agregar artículos seleccionados al historial de deduplicación
-  const newEntries: HistoryEntry[] = brief.articles.map((a) => ({
-    normalizedUrl: normalizeUrl(a.sourceUrl),
+  // Registrar artículos usados en esta edición
+  const newEntries: UsedArticle[] = brief.articles.map((a) => ({
+    title: a.title,
     normalizedTitle: normalizeTitle(a.title),
+    url: a.sourceUrl,
+    normalizedUrl: normalizeUrl(a.sourceUrl),
+    source: a.source,
     dateUsed: today,
     editionId: nextEdition,
   }))
 
-  // Mantener historial: nuevas entradas primero, máximo 400 entradas (≈ 2 años de ediciones)
-  const updatedHistory = [...newEntries, ...history].slice(0, 400)
+  // Mantener máximo 400 entradas (≈ 2 años de ediciones)
+  const updatedUsedArticles = [...newEntries, ...usedArticles].slice(0, 400)
 
+  // Guardar used-articles.json
+  writeFileSync(usedArticlesPath, JSON.stringify(updatedUsedArticles, null, 2), 'utf-8')
+  console.log(`Historial de deduplicación: ${updatedUsedArticles.length} entradas en used-articles.json`)
+
+  // Guardar news.json (sin history ni publishedUrls legacy)
   const updated = {
     lastUpdated: today,
     edition: nextEdition,
     morningBrief: brief.morningBrief,
     briefText: brief.briefText,
     articles: brief.articles,
-    history: updatedHistory,
   }
 
   writeFileSync(dataPath, JSON.stringify(updated, null, 2), 'utf-8')
-  console.log(`Edición #${nextEdition} guardada — ${updatedHistory.length} entradas en historial de deduplicación`)
+  console.log(`Edición #${nextEdition} guardada en news.json`)
 
   console.log('\nEnviando correo al equipo Fortantis...')
   try {

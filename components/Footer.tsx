@@ -27,7 +27,7 @@ export default function Footer() {
                 marginTop: '6px',
               }}
             >
-              Latam Native. Globally Minded.
+              LatAm Native. Globally Minded.
             </div>
           </div>
 

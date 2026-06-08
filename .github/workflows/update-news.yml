@@ -39,7 +39,7 @@ jobs:
         run: |
           git config user.name "Fortantis Bot"
           git config user.email "bot@fortantis.com"
-          git add data/news.json
+          git add data/news.json data/used-articles.json
           git diff --staged --quiet || git commit -m "📰 Edición actualizada [skip ci]"
           git pull --rebase origin main
           git push
