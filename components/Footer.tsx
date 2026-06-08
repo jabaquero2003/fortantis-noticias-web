@@ -2,8 +2,8 @@ export default function Footer() {
   return (
     <footer style={{ backgroundColor: '#0D2645' }}>
       <div style={{ height: '1px', backgroundColor: '#1E3A5F' }} />
-      <div className="max-w-6xl mx-auto px-8 py-10">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+      <div style={{ padding: '36px 48px', boxSizing: 'border-box' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '24px', flexWrap: 'wrap' }}>
 
           <div>
             <div
@@ -31,7 +31,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div style={{ color: '#6B88A8', fontSize: '0.75rem', lineHeight: '1.8' }} className="text-left sm:text-right">
+          <div style={{ color: '#6B88A8', fontSize: '0.75rem', lineHeight: '1.8', textAlign: 'right' }}>
             <div>Paseo de los Tamarindos 90, Torre 2</div>
             <div>Bosques de las Lomas · Ciudad de México</div>
             <div style={{ marginTop: '6px' }}>
