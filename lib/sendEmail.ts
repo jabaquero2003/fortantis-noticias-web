@@ -21,7 +21,7 @@ const WEB_URL = 'https://fortantis-noticias-web.vercel.app'
 function categoryColor(category: string): string {
   const map: Record<string, string> = {
     'Inversión Internacional': '#1A4A7A',
-    'Arbitraje Comercial': '#2A5C3E',
+    'Arbitraje Comercial': '#0D2645',
     'Doctrina y Análisis': '#5A3A1A',
     'Institucional': '#3A2A5C',
     'Regulación': '#4A3A1A',
@@ -74,7 +74,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fortantis Arbitration Signal — Edición #${edition}</title>
+  <title>Noticiero Fortantis — Edición #${edition}</title>
 </head>
 <body style="margin:0;padding:0;background-color:#EDEAE4;font-family:Arial,sans-serif;">
 
@@ -184,7 +184,7 @@ export async function sendNewsEmail(brief: BriefResult, edition: number): Promis
 
   const dayNum = new Date().getDay()
   const dayLabel = dayNum === 2 ? 'Martes' : dayNum === 5 ? 'Viernes' : ''
-  const subject = `Fortantis Arbitration Signal #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
+  const subject = `Noticiero Fortantis #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
 
   await transporter.sendMail({
     from: `"Fortantis Signal" <${process.env.GMAIL_USER}>`,
