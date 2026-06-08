@@ -55,7 +55,7 @@ function parseInline(text: string): string {
       '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#C17F3E;text-decoration:none;border-bottom:1px solid rgba(193,127,62,0.35);">$1</a>')
 }
 
-function renderParagraphs(text: string): React.ReactNode[] {
+function renderParagraphs(text: string, skipFuenteLine = false): React.ReactNode[] {
   if (!text) return []
   const nodes: React.ReactNode[] = []
   let key = 0
@@ -79,6 +79,7 @@ function renderParagraphs(text: string): React.ReactNode[] {
 
   for (const line of text.split('\n')) {
     const t = line.trim()
+    if (skipFuenteLine && /^\*\*Fuente:?\*\*/i.test(t)) continue
     if (!t.startsWith('* ') && !t.startsWith('- ')) flushList()
 
     if (!t || t === '---') {
@@ -227,13 +228,42 @@ export default function Home() {
 
       <div style={{ height: '3px', backgroundColor: '#C17F3E' }} />
 
+      {hasNews && (() => {
+        const navLinks = [
+          { label: 'Apertura', anchor: '#apertura', show: !!data.morningBrief },
+          { label: 'Señales', anchor: '#senales', show: signals.length > 0 },
+          { label: 'LatAm Radar', anchor: '#latam', show: !!latamText },
+          { label: 'Quantum & Daños', anchor: '#quantum', show: !!quantumText },
+          { label: 'Firmas e Instituciones', anchor: '#firmas', show: !!firmasText },
+          { label: 'Oportunidad', anchor: '#oportunidad', show: !!oportunText },
+          { label: 'Fuentes', anchor: '#fuentes', show: !!sourcesText },
+        ].filter(l => l.show)
+        return (
+          <nav style={{ backgroundColor: '#0A1E38', borderBottom: '1px solid #162D4A', position: 'sticky', top: 0, zIndex: 50, overflowX: 'auto' }}>
+            <div style={{ display: 'flex', padding: '0 48px', minWidth: 'max-content' }}>
+              {navLinks.map(({ label, anchor }) => (
+                <a key={anchor} href={anchor} style={{
+                  display: 'inline-block', padding: '11px 18px',
+                  color: '#6B88A8', fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase',
+                  textDecoration: 'none', borderBottom: '2px solid transparent',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )
+      })()}
+
       {hasNews ? (
         <>
           {/* MORNING BRIEF */}
           {data.morningBrief && (
-            <section style={{ backgroundColor: '#FFFFFF' }}>
+            <section id="apertura" style={{ backgroundColor: '#FFFFFF' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '52px 40px' }}>
-                <SectionLabel>Morning Brief</SectionLabel>
+                <SectionLabel>Apertura</SectionLabel>
                 <p style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 'clamp(0.94rem, 1.3vw, 1.04rem)',
@@ -248,7 +278,7 @@ export default function Home() {
 
           {/* SEÑALES PRINCIPALES — artículos completos */}
           {signals.length > 0 && (
-            <section style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
+            <section id="senales" style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
                 <SectionLabel>Señales Principales</SectionLabel>
 
@@ -269,7 +299,7 @@ export default function Home() {
                               fontFamily: "'Inter', sans-serif", fontSize: '0.6rem',
                               letterSpacing: '0.2em', color: '#C17F3E', textTransform: 'uppercase', fontWeight: 700,
                             }}>
-                              Signal {i + 1}
+                              Señal {i + 1}
                             </span>
                             {art && (
                               <span style={{
@@ -292,8 +322,28 @@ export default function Home() {
                         </div>
 
                         {/* Cuerpo completo del análisis */}
-                        <div style={{ padding: '0 36px 32px' }}>
-                          {renderParagraphs(signal.body)}
+                        <div style={{ padding: '0 36px 28px' }}>
+                          {renderParagraphs(signal.body, true)}
+                          {art?.whyItMatters && (
+                            <div style={{
+                              backgroundColor: '#F0EBE3', borderLeft: '3px solid #C17F3E',
+                              padding: '14px 20px', marginTop: '20px',
+                            }}>
+                              <div style={{
+                                fontSize: '0.58rem', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                color: '#C17F3E', fontWeight: 700, marginBottom: '6px',
+                                fontFamily: "'Inter', sans-serif",
+                              }}>
+                                Relevancia para Fortantis
+                              </div>
+                              <p style={{
+                                fontSize: '0.88rem', color: '#3A3A3A', lineHeight: 1.72,
+                                margin: 0, fontFamily: "'Inter', sans-serif",
+                              }}>
+                                {art.whyItMatters}
+                              </p>
+                            </div>
+                          )}
                         </div>
 
                         {/* Pie: fuente para referencia */}
@@ -314,11 +364,12 @@ export default function Home() {
                               })()}
                             </span>
                             <a href={art.sourceUrl} target="_blank" rel="noopener noreferrer" style={{
-                              marginLeft: 'auto', fontFamily: "'Inter', sans-serif", fontSize: '0.65rem',
-                              color: '#B0A898', letterSpacing: '0.08em', textDecoration: 'none',
-                              textTransform: 'uppercase',
+                              marginLeft: 'auto', fontFamily: "'Inter', sans-serif", fontSize: '0.6rem',
+                              color: '#FFFFFF', letterSpacing: '0.1em', textDecoration: 'none',
+                              textTransform: 'uppercase', backgroundColor: '#0D2645',
+                              padding: '6px 14px', display: 'inline-block',
                             }}>
-                              Fuente original ↗
+                              Ver fuente ↗
                             </a>
                           </div>
                         )}
@@ -332,7 +383,7 @@ export default function Home() {
 
           {/* LATAM RADAR */}
           {latamText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+            <section id="latam" style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>LatAm Radar</SectionLabel>
                 <div style={{ maxWidth: '900px' }}>{renderParagraphs(latamText)}</div>
@@ -342,7 +393,7 @@ export default function Home() {
 
           {/* QUANTUM & DAÑOS */}
           {quantumText && (
-            <section style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
+            <section id="quantum" style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Quantum & Daños</SectionLabel>
                 <div style={{ maxWidth: '900px' }}>{renderParagraphs(quantumText)}</div>
@@ -352,7 +403,7 @@ export default function Home() {
 
           {/* FIRMAS E INSTITUCIONES */}
           {firmasText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+            <section id="firmas" style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Firmas e Instituciones</SectionLabel>
                 <div style={{ maxWidth: '900px' }}>{renderParagraphs(firmasText)}</div>
@@ -362,7 +413,7 @@ export default function Home() {
 
           {/* OPORTUNIDAD DE CONTENIDO */}
           {oportunText && (
-            <section style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
+            <section id="oportunidad" style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '52px 40px' }}>
                 <SectionLabel>Oportunidad de Contenido</SectionLabel>
                 <div style={{ maxWidth: '900px' }}>{renderParagraphs(oportunText)}</div>
@@ -372,7 +423,7 @@ export default function Home() {
 
           {/* FUENTES */}
           {sourcesText && (
-            <section style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
+            <section id="fuentes" style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 40px 52px' }}>
                 <SectionLabel>Fuentes</SectionLabel>
                 <div style={{ maxWidth: '900px' }}>{renderParagraphs(sourcesText)}</div>
