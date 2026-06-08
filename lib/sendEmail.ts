@@ -145,7 +145,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
         <tr>
           <td>
             <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#C17F3E;margin-bottom:10px;">FORTANTIS</div>
-            <div style="font-family:Georgia,serif;font-size:24px;font-weight:normal;color:#FFFFFF;line-height:1.2;margin-bottom:4px;">Arbitration Signal</div>
+            <div style="font-family:Georgia,serif;font-size:24px;font-weight:normal;color:#FFFFFF;line-height:1.2;margin-bottom:4px;">Noticiero Fortantis</div>
             <div style="width:40px;height:1px;background:#C17F3E;margin:14px 0;"></div>
             <div style="font-family:Arial,sans-serif;font-size:11px;color:#6B88A8;">
               Edición #${edition} &nbsp;·&nbsp; ${dateStr}
@@ -167,7 +167,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
 
   <tr>
     <td style="background:#F7F4F0;padding:24px 44px;text-align:center;border-top:1px solid #E0D9CF;">
-      <a href="https://noticias.fortantis.com"
+      <a href="https://fortantis-noticias-web.vercel.app"
          style="display:inline-block;background:#0D2645;color:#C17F3E;text-decoration:none;
                 padding:12px 36px;font-family:Arial,sans-serif;font-size:10px;
                 letter-spacing:3px;text-transform:uppercase;">
@@ -215,7 +215,7 @@ export async function sendNewsEmail(brief: BriefResult, edition: number): Promis
 
   const dayNum = new Date().getDay()
   const dayLabel = dayNum === 2 ? 'Martes' : dayNum === 5 ? 'Viernes' : ''
-  const subject = `Arbitration Signal #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
+  const subject = `Noticiero Fortantis #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
 
   await transporter.sendMail({
     from: `"Fortantis Signal" <${process.env.GMAIL_USER}>`,

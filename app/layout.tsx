@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Fortantis · Arbitraje Internacional',
+  title: 'Noticiero Fortantis · Arbitraje Internacional',
   description: 'Boletín de noticias de arbitraje internacional de Fortantis. Actualizado cada martes y viernes con las noticias más relevantes a nivel global.',
   keywords: 'arbitraje internacional, arbitration, ICSID, ICC, UNCITRAL, Fortantis, noticias arbitraje',
   icons: {
