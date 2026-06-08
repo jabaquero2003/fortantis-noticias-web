@@ -11,19 +11,36 @@ async function main() {
   const current = JSON.parse(readFileSync(dataPath, 'utf-8'))
   const nextEdition = (current.edition ?? 0) + 1
 
-  console.log('Obteniendo noticias de fuentes RSS...')
-  const rawArticles = await fetchAllNews()
-  console.log(`   Total obtenido: ${rawArticles.length} artículos\n`)
+  // URLs ya publicadas en ediciones anteriores (evitar repetición)
+  const previousUrls: string[] = current.publishedUrls ?? []
 
-  if (rawArticles.length === 0) {
+  console.log('Obteniendo noticias de fuentes RSS...')
+  const allRaw = await fetchAllNews()
+  console.log(`   Total obtenido: ${allRaw.length} artículos`)
+
+  // Filtrar artículos ya publicados en ediciones previas
+  const freshRaw = allRaw.filter((a) => !previousUrls.includes(a.link))
+  const filtered = allRaw.length - freshRaw.length
+  if (filtered > 0) {
+    console.log(`   Filtrados ${filtered} artículos ya publicados en ediciones anteriores`)
+  }
+  console.log(`   Artículos nuevos: ${freshRaw.length}\n`)
+
+  if (freshRaw.length === 0) {
     console.log('No se encontraron artículos nuevos. Abortando.')
     process.exit(0)
   }
 
   console.log('Curación y resumen con Claude AI...')
-  const brief = await curateAndSummarize(rawArticles)
+  const brief = await curateAndSummarize(freshRaw)
   console.log(`   Artículos seleccionados: ${brief.articles.length}`)
   console.log(`   Brief generado: ${brief.briefText.length} caracteres\n`)
+
+  // Acumular URLs publicadas (máx. 200 para evitar crecer indefinidamente)
+  const newPublishedUrls = [
+    ...brief.articles.map((a) => a.sourceUrl),
+    ...previousUrls,
+  ].slice(0, 200)
 
   const updated = {
     lastUpdated: new Date().toISOString(),
@@ -31,10 +48,11 @@ async function main() {
     morningBrief: brief.morningBrief,
     briefText: brief.briefText,
     articles: brief.articles,
+    publishedUrls: newPublishedUrls,
   }
 
   writeFileSync(dataPath, JSON.stringify(updated, null, 2), 'utf-8')
-  console.log(`Edición #${nextEdition} guardada en data/news.json`)
+  console.log(`Edición #${nextEdition} guardada — ${newPublishedUrls.length} URLs en historial`)
 
   console.log('\nEnviando correo al equipo Fortantis...')
   try {
