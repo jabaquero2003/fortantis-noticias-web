@@ -112,11 +112,17 @@ Si no hay ángulo válido, escribe exactamente:
 
 ## 5. Firmas e Instituciones
 
-Qué están publicando o posicionando firmas, boutiques, instituciones arbitrales o expertos. Máximo 3 puntos. Para cada uno: quién publicó, qué posiciona, qué señal de mercado representa, qué puede ser útil monitorear internamente.
+Monitoreo de boutiques, firmas y instituciones arbitrales. Máximo 3 puntos. Cada punto debe:
+- Identificar quién publicó o se movió (nombre exacto de la firma o boutique)
+- Describir qué publicaron, qué posicionamiento muestran, o qué movimiento de talento ocurrió
+- Incluir la fuente con link: **[Nombre de la fuente](URL)**
+- Explicar qué señal de mercado representa para Fortantis
 
-Si se trata de un artículo ya en Top 3, referenciarlo brevemente como "Relacionado con Signal N" sin repetir el análisis.
+Priorizar: movimientos de socios, publicaciones doctrinales de boutiques especializadas en arbitraje internacional, guías de instituciones arbitrales (ICSID, ICC, LCIA, SIAC), rankings o reportes del sector.
 
-Si no aplica, escribe exactamente:
+Si un artículo ya está en Top 5, referenciarlo como "Relacionado con Signal N" y añadir SOLO el ángulo de posicionamiento de la firma, con su link original.
+
+Si no hay contenido relevante de firmas en los artículos disponibles, escribe exactamente:
 "Sin publicaciones relevantes de firmas o instituciones en esta edición."
 
 ## 6. Oportunidad de Contenido

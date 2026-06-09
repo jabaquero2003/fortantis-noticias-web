@@ -26,6 +26,21 @@ const RSS_SOURCES = [
     url: 'https://www.jdsupra.com/topics/international-arbitration/rss/',
     category: 'Noticias Legales',
   },
+  {
+    name: 'Herbert Smith Freehills — Arbitration',
+    url: 'https://hsfnotes.com/arbitration/feed/',
+    category: 'Doctrina y Análisis',
+  },
+  {
+    name: 'Freshfields — Arbitration',
+    url: 'https://arbitrationblog.freshfields.com/feed/',
+    category: 'Doctrina y Análisis',
+  },
+  {
+    name: 'Lexology — Arbitration',
+    url: 'https://www.lexology.com/rss.ashx?topics=arbitration',
+    category: 'Noticias Legales',
+  },
 ]
 
 export interface RawArticle {
@@ -70,7 +85,7 @@ export async function fetchAllNews(): Promise<RawArticle[]> {
         return new Date(item.pubDate) > cutoff
       })
       const articles: RawArticle[] = []
-      for (const item of recent.slice(0, 6)) {
+      for (const item of recent.slice(0, 10)) {
         if (!item.title || !item.link) continue
         articles.push({
           title: item.title.trim(),

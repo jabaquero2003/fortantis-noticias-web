@@ -186,7 +186,7 @@ export async function sendNewsEmail(brief: BriefResult, edition: number): Promis
   const subject = `Noticiero Fortantis #${edition}${dayLabel ? ` · ${dayLabel}` : ''} — ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}`
 
   await transporter.sendMail({
-    from: `"Fortantis Signal" <${process.env.GMAIL_USER}>`,
+    from: `"Noticiero Fortantis" <${process.env.GMAIL_USER}>`,
     to: RECIPIENTS.join(', '),
     subject,
     html,
