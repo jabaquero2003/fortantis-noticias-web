@@ -41,7 +41,9 @@ REGLA DE DEDUPLICACIÓN ENTRE SECCIONES (CRÍTICA):
 - Si una sección necesita referirse a un artículo ya incluido en los Top 5, usa únicamente: "Relacionado con Signal 1:" y luego explica el ángulo específico sin repetir el resumen del artículo.
 - Cada sección debe aportar análisis nuevo, no repetir lo ya dicho.
 
-CRITERIOS DE SELECCIÓN (prioriza artículos que cumplan uno o más):
+CRITERIOS DE SELECCIÓN — ORDEN DE PRIORIDAD OBLIGATORIO:
+1. RECENCIA PRIMERO: Entre artículos de similar relevancia, siempre elige el más reciente. Una noticia de hoy o ayer supera a una de hace 5 días aunque esta última parezca más importante en abstracto. El brief debe reflejar lo que está pasando AHORA.
+2. RELEVANCIA TEMÁTICA: artículos que cumplan uno o más de los siguientes:
 - Arbitraje internacional comercial o de inversión
 - Disputas inversionista-Estado (ISDS)
 - México, América Latina o mercados emergentes

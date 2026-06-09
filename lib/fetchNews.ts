@@ -96,5 +96,8 @@ export async function fetchAllNews(): Promise<RawArticle[]> {
     }
   })
 
+  // Ordenar por fecha descendente (más recientes primero)
+  articles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+
   return articles
 }

@@ -3,9 +3,8 @@ import { BriefResult } from './summarizeNews'
 
 const RECIPIENTS = [
   'jabaquero2003@gmail.com',
-  // 'jose.baquero@fortantis.com',
-  // 'samuel.garciacuellar@fortantis.com',
-  // 'juan.olivera@fortantis.com',
+  'samuel.garciacuellar@fortantis.com',
+  'juan.olivera@fortantis.com',
 ]
 
 const transporter = nodemailer.createTransport({
