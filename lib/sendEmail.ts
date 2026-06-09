@@ -2,9 +2,9 @@ import nodemailer from 'nodemailer'
 import { BriefResult } from './summarizeNews'
 
 const RECIPIENTS = [
-  'jabaquero2003@gmail.com',
   'samuel.garciacuellar@fortantis.com',
   'juan.olivera@fortantis.com',
+  'jose.baquero@fortantis.mx',
 ]
 
 const transporter = nodemailer.createTransport({

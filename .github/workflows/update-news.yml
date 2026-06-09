@@ -2,8 +2,8 @@ name: Fortantis — Actualización de Noticias
 
 on:
   schedule:
-    # Martes y viernes a las 13:30 UTC = 8:30 AM Colombia (UTC-5)
-    - cron: '30 13 * * 2,5'
+    # Martes y viernes a las 14:30 UTC = 8:30 AM CDMX (UTC-6)
+    - cron: '30 14 * * 2,5'
   workflow_dispatch:
     # Permite ejecución manual desde GitHub
 
