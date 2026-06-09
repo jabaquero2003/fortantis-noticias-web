@@ -193,7 +193,7 @@ export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult
 
   const response = await client.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 8000,
+    max_tokens: 12000,
     messages: [
       {
         role: 'user',

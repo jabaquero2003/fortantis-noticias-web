@@ -188,7 +188,6 @@ export default function Home() {
   const latamText   = extractSection(briefText, '## 3.', '## 4.')
   const quantumText = extractSection(briefText, '## 4.', '## 5.')
   const firmasText  = extractSection(briefText, '## 5.', '## 6.')
-  const oportunText = extractSection(briefText, '## 6.', '## 7.')
   const sourcesText = extractSection(briefText, '## 7.', '')
 
   return (
@@ -235,7 +234,7 @@ export default function Home() {
           { label: 'Apertura', anchor: '#apertura', show: !!data.morningBrief },
           { label: 'Noticias', anchor: '#senales', show: signals.length > 0 },
           { label: 'Radar LatAm', anchor: '#latam', show: !!latamText && !latamText.startsWith('No se identificaron señales regionales') },
-          { label: 'Quantum & Daños', anchor: '#quantum', show: !!quantumText },
+          { label: 'Quantum & Daños', anchor: '#quantum', show: !!quantumText && !quantumText.startsWith('No se identificó un ángulo fuerte') },
           { label: 'Firmas e Instituciones', anchor: '#firmas', show: !!firmasText },
           { label: 'Fuentes', anchor: '#fuentes', show: !!sourcesText },
         ].filter(l => l.show)
@@ -381,7 +380,7 @@ export default function Home() {
           )}
 
           {/* QUANTUM & DAÑOS */}
-          {quantumText && (
+          {quantumText && !quantumText.startsWith('No se identificó un ángulo fuerte') && (
             <section id="quantum" style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
               <div style={{ padding: '44px 48px' }}>
                 <SectionLabel>Quantum & Daños</SectionLabel>

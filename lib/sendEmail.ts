@@ -29,9 +29,9 @@ function categoryColor(category: string): string {
 }
 
 function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): string {
-  const top3 = brief.articles.slice(0, 5)
+  const top5 = brief.articles.slice(0, 5)
 
-  const signalRows = top3
+  const signalRows = top5
     .map(
       (article, i) => `
     <tr>
@@ -132,7 +132,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
   <tr>
     <td style="background:#F7F4F0;padding:22px 40px;text-align:center;border-top:1px solid #E0D9CF;">
       <div style="font-family:Arial,sans-serif;font-size:11px;color:#7A7A7A;margin-bottom:14px;">
-        Edición completa incluye: LatAm Radar · Quantum & Daños · Firmas e Instituciones · Oportunidad de Contenido
+        Edición completa incluye: Radar LatAm · Quantum & Daños · Firmas e Instituciones · Fuentes
       </div>
       <a href="${WEB_URL}"
          style="display:inline-block;background:#C17F3E;color:#FFFFFF;text-decoration:none;
