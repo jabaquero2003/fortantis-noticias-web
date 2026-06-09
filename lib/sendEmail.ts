@@ -45,7 +45,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
           <tr>
             <td>
               <div style="font-family:Georgia,serif;font-size:15px;font-weight:normal;color:#0D2645;line-height:1.4;margin-bottom:6px;">
-                <span style="color:#C17F3E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-right:8px;">Señal ${i + 1}</span>
+                <span style="color:#C17F3E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-right:8px;">Noticia ${i + 1}</span>
                 ${article.title}
               </div>
             </td>
@@ -114,7 +114,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
   <tr>
     <td style="background:#FFFFFF;padding:28px 40px 20px;">
       <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#C17F3E;margin-bottom:12px;">Apertura</div>
-      <p style="font-family:Georgia,serif;font-size:13px;color:#2A2A2A;line-height:1.75;margin:0;font-style:italic;">${brief.morningBrief}</p>
+      <p style="font-family:Georgia,serif;font-size:13px;color:#2A2A2A;line-height:1.75;margin:0;">${brief.morningBrief}</p>
     </td>
   </tr>
 

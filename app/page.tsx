@@ -299,7 +299,7 @@ export default function Home() {
                               fontFamily: "'Inter', sans-serif", fontSize: '0.6rem',
                               letterSpacing: '0.2em', color: '#C17F3E', textTransform: 'uppercase', fontWeight: 700,
                             }}>
-                              Señal {i + 1}
+                              Noticia {i + 1}
                             </span>
                             {art && (
                               <span style={{
