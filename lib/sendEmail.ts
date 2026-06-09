@@ -30,7 +30,7 @@ function categoryColor(category: string): string {
 }
 
 function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): string {
-  const top3 = brief.articles.slice(0, 3)
+  const top3 = brief.articles.slice(0, 5)
 
   const signalRows = top3
     .map(
@@ -122,7 +122,7 @@ function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): s
   <!-- TOP 3 SIGNALS -->
   <tr>
     <td style="background:#FFFFFF;padding:8px 40px 28px;">
-      <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9A8E84;border-bottom:2px solid #0D2645;padding-bottom:8px;margin-bottom:4px;">Señales Principales</div>
+      <div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#9A8E84;border-bottom:2px solid #0D2645;padding-bottom:8px;margin-bottom:4px;">Noticias Principales</div>
       <table width="100%" cellpadding="0" cellspacing="0">
         ${signalRows}
       </table>

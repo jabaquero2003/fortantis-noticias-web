@@ -37,8 +37,8 @@ TONO OBLIGATORIO:
 - TODO en español.
 
 REGLA DE DEDUPLICACIÓN ENTRE SECCIONES (CRÍTICA):
-- Los artículos usados en "Top 3 Arbitration Signals" NO pueden repetirse como análisis completo en ninguna sección posterior.
-- Si una sección necesita referirse a un artículo ya incluido en los Top 3, usa únicamente: "Relacionado con Signal 1:" y luego explica el ángulo específico sin repetir el resumen del artículo.
+- Los artículos usados en "Top 5 Arbitration Signals" NO pueden repetirse como análisis completo en ninguna sección posterior.
+- Si una sección necesita referirse a un artículo ya incluido en los Top 5, usa únicamente: "Relacionado con Signal 1:" y luego explica el ángulo específico sin repetir el resumen del artículo.
 - Cada sección debe aportar análisis nuevo, no repetir lo ya dicho.
 
 CRITERIOS DE SELECCIÓN (prioriza artículos que cumplan uno o más):
@@ -73,9 +73,9 @@ Uso: Brief interno automatizado
 
 3-4 líneas que respondan: ¿cuál es la señal dominante de esta edición?, ¿qué temas se repiten o destacan?, ¿por qué conviene revisar esta edición? Sin frases de relleno. Directo.
 
-## 2. Top 3 Arbitration Signals
+## 2. Top 5 Arbitration Signals
 
-Selecciona exactamente las 3 noticias más relevantes. Calidad sobre cantidad. Si ninguna es fuerte, di "No se identificaron señales principales en esta edición."
+Selecciona exactamente las 5 noticias más relevantes. Calidad sobre cantidad. Si ninguna es fuerte, di "No se identificaron señales principales en esta edición."
 
 Para cada señal:
 
@@ -87,10 +87,10 @@ Para cada señal:
 
 ## 3. LatAm Radar
 
-REGLA CRÍTICA: NO repetir artículos de Top 3 como análisis completo. Si necesitas referenciar uno, usa solo "Relacionado con Signal N:" y añade el ángulo regional específico.
+REGLA CRÍTICA: NO repetir artículos de Top 5 como análisis completo. Si necesitas referenciar uno, usa solo "Relacionado con Signal N:" y añade el ángulo regional específico.
 
 Solo incluir:
-- Noticias directamente relacionadas con México o América Latina que NO estén en Top 3
+- Noticias directamente relacionadas con México o América Latina que NO estén en Top 5
 - Noticias globales con impacto razonable en empresas, Estados, SOEs, contratos públicos o sectores regulados de América Latina
 - Señales sectoriales para energía, infraestructura, minería, construcción, petróleo y gas, telecomunicaciones o concesiones en la región
 
@@ -103,7 +103,7 @@ Si no hay señales LatAm genuinamente distintas, escribe exactamente:
 
 Solo aparece con contenido real si hay ángulo económico claro: daños, quantum, valuación, lucro cesante, pérdida de utilidades, DCF, intereses, tipo de cambio, riesgo país, costos hundidos, expropiación, terminación contractual, retrasos de proyectos, o contratos de largo plazo en infraestructura, energía, minería o construcción.
 
-Si el análisis se basa en un artículo ya mencionado en Top 3, usa: "Relacionado con Signal N:" y luego explica SOLO el ángulo económico.
+Si el análisis se basa en un artículo ya mencionado en Top 5, usa: "Relacionado con Signal N:" y luego explica SOLO el ángulo económico.
 
 Si no hay ángulo válido, escribe exactamente:
 "No se identificó un ángulo fuerte de quantum o daños en esta edición."
@@ -159,7 +159,7 @@ Después del brief, agrega este bloque JSON sin modificar los delimitadores:
 }
 <<<JSON_END>>>
 
-IMPORTANTE: El array "articles" debe contener EXACTAMENTE los mismos 3 artículos seleccionados para Top 3 Arbitration Signals, en el mismo orden.`
+IMPORTANTE: El array "articles" debe contener EXACTAMENTE los mismos 5 artículos seleccionados para Top 5 Arbitration Signals, en el mismo orden.`
 }
 
 export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult> {
@@ -229,8 +229,8 @@ export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult
     }
   }
 
-  // Garantizar máximo 3 artículos
-  articles = articles.slice(0, 3)
+  // Garantizar máximo 5 artículos
+  articles = articles.slice(0, 5)
 
   return { briefText, morningBrief, articles }
 }

@@ -152,7 +152,7 @@ function extractIndividualSignals(briefText: string): { title: string; body: str
   }
 
   // Asociar con el artículo correspondiente por índice
-  return signals.slice(0, 3).map((s, i) => ({
+  return signals.slice(0, 5).map((s, i) => ({
     ...s,
     article: data.articles?.[i],
   }))
@@ -233,7 +233,7 @@ export default function Home() {
       {hasNews && (() => {
         const navLinks = [
           { label: 'Apertura', anchor: '#apertura', show: !!data.morningBrief },
-          { label: 'Señales', anchor: '#senales', show: signals.length > 0 },
+          { label: 'Noticias', anchor: '#senales', show: signals.length > 0 },
           { label: 'Radar LatAm', anchor: '#latam', show: !!latamText && !latamText.startsWith('No se identificaron señales regionales') },
           { label: 'Quantum & Daños', anchor: '#quantum', show: !!quantumText },
           { label: 'Firmas e Instituciones', anchor: '#firmas', show: !!firmasText },
@@ -281,7 +281,7 @@ export default function Home() {
           {signals.length > 0 && (
             <section id="senales" style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
               <div style={{ padding: '0 48px' }}>
-                <SectionLabel>Señales Principales</SectionLabel>
+                <SectionLabel>Noticias Principales</SectionLabel>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
                   {signals.map((signal, i) => {
