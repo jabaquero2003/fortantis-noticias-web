@@ -18,7 +18,6 @@ export default function Header() {
 
         <div style={{ color: '#6B88A8', fontSize: '0.68rem', letterSpacing: '0.12em', textAlign: 'right', textTransform: 'uppercase' }}>
           <div>Boletín de Noticias</div>
-          <div style={{ color: '#C17F3E', marginTop: '3px' }}>Martes &amp; Viernes · 8:30 AM</div>
         </div>
 
       </div>
