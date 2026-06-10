@@ -1,11 +1,8 @@
 name: Fortantis — Actualización de Noticias
 
 on:
-  schedule:
-    # Lunes a viernes a las 14:30 UTC = 8:30 AM CDMX (UTC-6)
-    - cron: '30 14 * * 1-5'
   workflow_dispatch:
-    # Permite ejecución manual desde GitHub
+    # Disparado por cron-job.org a las 8:30 AM CDMX (UTC-6), lunes a viernes
 
 jobs:
   update-news:
