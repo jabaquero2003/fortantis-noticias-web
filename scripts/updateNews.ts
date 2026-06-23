@@ -1,5 +1,6 @@
 import { fetchAllNews } from '../lib/fetchNews'
 import { fetchAllFirmPages } from '../lib/fetchFirmPages'
+import { fetchFirmSearchResults } from '../lib/fetchFirmSearch'
 import { curateAndSummarize } from '../lib/summarizeNews'
 import { sendNewsEmail } from '../lib/sendEmail'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
@@ -86,9 +87,12 @@ async function main() {
 
   console.log('Obteniendo publicaciones de páginas de firmas...')
   const firmRaw = await fetchAllFirmPages()
-  console.log(`   Firmas total: ${firmRaw.length} publicaciones`)
+  console.log(`   Firmas scraping: ${firmRaw.length} publicaciones`)
 
-  const allRaw = [...rssRaw, ...firmRaw]
+  console.log('Buscando publicaciones de firmas con Brave Search...')
+  const searchRaw = await fetchFirmSearchResults()
+
+  const allRaw = [...rssRaw, ...firmRaw, ...searchRaw]
   console.log(`   Total combinado: ${allRaw.length} artículos\n`)
 
   const freshRaw = allRaw.filter((a) => {
