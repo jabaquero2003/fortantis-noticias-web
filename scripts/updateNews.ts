@@ -1,4 +1,5 @@
 import { fetchAllNews } from '../lib/fetchNews'
+import { fetchAllFirmPages } from '../lib/fetchFirmPages'
 import { curateAndSummarize } from '../lib/summarizeNews'
 import { sendNewsEmail } from '../lib/sendEmail'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
@@ -80,8 +81,15 @@ async function main() {
   const usedNormalizedTitles = new Set(usedArticles.map((a) => a.normalizedTitle).filter(Boolean))
 
   console.log('Obteniendo noticias de fuentes RSS...')
-  const allRaw = await fetchAllNews()
-  console.log(`   Total obtenido: ${allRaw.length} artículos`)
+  const rssRaw = await fetchAllNews()
+  console.log(`   RSS total: ${rssRaw.length} artículos`)
+
+  console.log('Obteniendo publicaciones de páginas de firmas...')
+  const firmRaw = await fetchAllFirmPages()
+  console.log(`   Firmas total: ${firmRaw.length} publicaciones`)
+
+  const allRaw = [...rssRaw, ...firmRaw]
+  console.log(`   Total combinado: ${allRaw.length} artículos\n`)
 
   const freshRaw = allRaw.filter((a) => {
     if (usedNormalizedUrls.has(normalizeUrl(a.link))) return false
@@ -107,16 +115,27 @@ async function main() {
 
   const today = new Date().toISOString()
 
-  // Registrar artículos usados en esta edición
-  const newEntries: UsedArticle[] = brief.articles.map((a) => ({
-    title: a.title,
-    normalizedTitle: normalizeTitle(a.title),
-    url: a.sourceUrl,
-    normalizedUrl: normalizeUrl(a.sourceUrl),
-    source: a.source,
-    dateUsed: today,
-    editionId: nextEdition,
-  }))
+  // Registrar artículos y boutiques usados en esta edición
+  const newEntries: UsedArticle[] = [
+    ...brief.articles.map((a) => ({
+      title: a.title,
+      normalizedTitle: normalizeTitle(a.title),
+      url: a.sourceUrl,
+      normalizedUrl: normalizeUrl(a.sourceUrl),
+      source: a.source,
+      dateUsed: today,
+      editionId: nextEdition,
+    })),
+    ...brief.boutiques.map((b) => ({
+      title: b.title,
+      normalizedTitle: normalizeTitle(b.title),
+      url: b.link,
+      normalizedUrl: normalizeUrl(b.link),
+      source: b.firm,
+      dateUsed: today,
+      editionId: nextEdition,
+    })),
+  ]
 
   // Mantener máximo 400 entradas (≈ 2 años de ediciones)
   const updatedUsedArticles = [...newEntries, ...usedArticles].slice(0, 400)

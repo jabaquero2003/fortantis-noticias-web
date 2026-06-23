@@ -51,6 +51,36 @@ const RSS_SOURCES = [
     url: 'https://globalarbitrationreview.com/rss?region=latin-america',
     category: 'Arbitraje Internacional',
   },
+  {
+    name: 'White & Case — Insights',
+    url: 'https://www.whitecase.com/feed',
+    category: 'Boutique Global',
+  },
+  {
+    name: 'Hogan Lovells — Insights',
+    url: 'https://www.hoganlovells.com/feed',
+    category: 'Boutique Global',
+  },
+  {
+    name: 'Greenberg Traurig — Insights',
+    url: 'https://gtlaw.com/en/feed',
+    category: 'Boutique Global',
+  },
+  {
+    name: 'Mattos Filho — Publicações',
+    url: 'https://www.mattosfilho.com.br/feed/',
+    category: 'Boutique LatAm',
+  },
+  {
+    name: 'Three Crowns — Blog',
+    url: 'https://www.threecrownsllp.com/feed/',
+    category: 'Boutique Global',
+  },
+  {
+    name: 'Aceris Law — Arbitration',
+    url: 'https://acerislaw.com/feed/',
+    category: 'Doctrina y Análisis',
+  },
 ]
 
 export interface RawArticle {
