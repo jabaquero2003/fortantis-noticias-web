@@ -41,6 +41,16 @@ const RSS_SOURCES = [
     url: 'https://www.lexology.com/rss.ashx?topics=arbitration',
     category: 'Noticias Legales',
   },
+  {
+    name: 'Aceris Law — Arbitration',
+    url: 'https://acerislaw.com/feed/',
+    category: 'Doctrina y Análisis',
+  },
+  {
+    name: 'GAR — Latin America',
+    url: 'https://globalarbitrationreview.com/rss?region=latin-america',
+    category: 'Arbitraje Internacional',
+  },
 ]
 
 export interface RawArticle {

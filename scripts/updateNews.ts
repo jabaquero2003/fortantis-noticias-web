@@ -132,6 +132,8 @@ async function main() {
     morningBrief: brief.morningBrief,
     briefText: brief.briefText,
     articles: brief.articles,
+    boutiques: brief.boutiques,
+    events: brief.events,
   }
 
   writeFileSync(dataPath, JSON.stringify(updated, null, 2), 'utf-8')

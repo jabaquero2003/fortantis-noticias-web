@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import newsData from '@/data/news.json'
@@ -13,6 +14,7 @@ interface Article {
   sourceUrl: string
   publishedAt: string
   category: string
+  region?: string
   whyItMatters?: string
 }
 
@@ -22,6 +24,8 @@ interface NewsData {
   morningBrief?: string
   briefText?: string
   articles: Article[]
+  boutiques?: unknown[]
+  events?: unknown[]
 }
 
 const data = newsData as NewsData
@@ -32,6 +36,13 @@ const CATEGORY_STYLES: Record<string, { bg: string; color: string }> = {
   'Doctrina y Análisis':     { bg: '#5A3A1A', color: '#FFFFFF' },
   'Institucional':           { bg: '#3A2A5C', color: '#FFFFFF' },
   'Regulación':              { bg: '#4A3A1A', color: '#FFFFFF' },
+}
+
+const REGION_STYLES: Record<string, { bg: string; color: string }> = {
+  'México':  { bg: '#006847', color: '#FFFFFF' },
+  'LatAm':   { bg: '#8B4513', color: '#FFFFFF' },
+  'España':  { bg: '#AA151B', color: '#FFFFFF' },
+  'Global':  { bg: '#3A3A3A', color: '#FFFFFF' },
 }
 
 function SectionLabel({ children }: { children: string }) {
@@ -92,8 +103,7 @@ function renderParagraphs(text: string, skipFuenteLine = false): React.ReactNode
       nodes.push(
         <h3 key={key++} style={{
           fontFamily: "'Inter', sans-serif", fontSize: '0.88rem', fontWeight: 600,
-          color: '#0D2645', letterSpacing: '0.04em',
-          marginTop: '28px', marginBottom: '10px',
+          color: '#0D2645', letterSpacing: '0.04em', marginTop: '28px', marginBottom: '10px',
         }} dangerouslySetInnerHTML={{ __html: parseInline(t.slice(3)) }} />
       )
     } else if (t.startsWith('### ')) {
@@ -128,14 +138,12 @@ function renderParagraphs(text: string, skipFuenteLine = false): React.ReactNode
   return nodes
 }
 
-// Extrae cada señal individual de la sección 2 del briefText
 function extractIndividualSignals(briefText: string): { title: string; body: string; article?: Article }[] {
   const sec2Start = briefText.indexOf('## 2.')
   if (sec2Start === -1) return []
   const sec3Start = briefText.indexOf('## 3.', sec2Start)
   const section2 = sec3Start === -1 ? briefText.slice(sec2Start) : briefText.slice(sec2Start, sec3Start)
 
-  // Dividir por subsecciones ### Signal N: o ### [título]
   const parts = section2.split(/\n(?=### )/)
   const signals: { title: string; body: string; article?: Article }[] = []
 
@@ -145,13 +153,11 @@ function extractIndividualSignals(briefText: string): { title: string; body: str
     const firstNewline = trimmed.indexOf('\n')
     if (firstNewline === -1) continue
     const rawTitle = trimmed.slice(4, firstNewline).trim()
-    // Quitar el prefijo "Signal N: " si existe
-    const title = rawTitle.replace(/^Signal\s+\d+:\s*/i, '')
+    const title = rawTitle.replace(/^(Signal|Noticia)\s+\d+:\s*/i, '')
     const body = trimmed.slice(firstNewline).trim()
     signals.push({ title, body })
   }
 
-  // Asociar con el artículo correspondiente por índice
   return signals.slice(0, 5).map((s, i) => ({
     ...s,
     article: data.articles?.[i],
@@ -167,12 +173,6 @@ function extractSection(briefText: string, marker: string, nextMarker: string): 
   return firstNewline === -1 ? '' : raw.slice(firstNewline).trim()
 }
 
-function editionLabel(lastUpdated: string): string | null {
-  const day = new Date(lastUpdated).getDay()
-  if (day === 2 || day === 5) return null
-  return process.env.NODE_ENV === 'production' ? 'Edición Especial' : 'Edición de Prueba'
-}
-
 export default function Home() {
   const briefText = data.briefText ?? ''
   const hasNews = data.articles?.length > 0 || briefText.length > 0
@@ -183,12 +183,11 @@ export default function Home() {
       })
     : null
 
-  const label = data.lastUpdated ? editionLabel(data.lastUpdated) : null
   const signals = extractIndividualSignals(briefText)
-  const latamText   = extractSection(briefText, '## 3.', '## 4.')
-  const quantumText = extractSection(briefText, '## 4.', '## 5.')
-  const firmasText  = extractSection(briefText, '## 5.', '## 6.')
-  const sourcesText = extractSection(briefText, '## 7.', '')
+  const sourcesText = extractSection(briefText, '## 5.', '')
+
+  const hasBoutiques = Array.isArray(data.boutiques) && data.boutiques.length > 0
+  const hasEvents = Array.isArray(data.events) && data.events.length > 0
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0EBE3' }}>
@@ -197,15 +196,6 @@ export default function Home() {
       {/* HERO */}
       <section style={{ backgroundColor: '#0D2645', padding: '56px 0 64px' }}>
         <div style={{ padding: '0 48px' }}>
-          {label && (
-            <div style={{
-              display: 'inline-block', border: '1px solid #C17F3E', color: '#C17F3E',
-              fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase',
-              padding: '4px 12px', marginBottom: '20px', fontFamily: "'Inter', sans-serif",
-            }}>
-              {label}
-            </div>
-          )}
           <h1 style={{
             fontFamily: "'Inter', sans-serif", fontWeight: 200,
             fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#FFFFFF',
@@ -214,7 +204,7 @@ export default function Home() {
             Noticiero Fortantis
           </h1>
           <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#C17F3E', marginTop: '10px', fontWeight: 300 }}>
-            Claridad rigurosa. Análisis que se sostiene.
+            Inteligencia arbitral. Claridad que se sostiene.
           </div>
           {formattedDate && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '24px' }}>
@@ -229,37 +219,43 @@ export default function Home() {
 
       <div style={{ height: '3px', backgroundColor: '#C17F3E' }} />
 
-      {hasNews && (() => {
-        const navLinks = [
-          { label: 'Apertura', anchor: '#apertura', show: !!data.morningBrief },
-          { label: 'Noticias', anchor: '#senales', show: signals.length > 0 },
-          { label: 'Radar LatAm', anchor: '#latam', show: !!latamText && !latamText.startsWith('No se identificaron señales regionales') },
-          { label: 'Quantum & Daños', anchor: '#quantum', show: !!quantumText && !quantumText.startsWith('No se identificó un ángulo fuerte') },
-          { label: 'Firmas e Instituciones', anchor: '#firmas', show: !!firmasText },
-          { label: 'Fuentes', anchor: '#fuentes', show: !!sourcesText },
-        ].filter(l => l.show)
-        return (
-          <nav style={{ backgroundColor: '#0A1E38', borderBottom: '1px solid #162D4A', position: 'sticky', top: 0, zIndex: 50, overflowX: 'auto' }}>
-            <div style={{ display: 'flex', padding: '0 48px', minWidth: 'max-content' }}>
-              {navLinks.map(({ label, anchor }) => (
-                <a key={anchor} href={anchor} style={{
-                  display: 'inline-block', padding: '11px 18px',
-                  color: '#6B88A8', fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase',
-                  textDecoration: 'none', borderBottom: '2px solid transparent',
-                  whiteSpace: 'nowrap',
-                }}>
-                  {label}
-                </a>
-              ))}
+      {/* NAV */}
+      {hasNews && (
+        <nav style={{ backgroundColor: '#0A1E38', borderBottom: '1px solid #162D4A', position: 'sticky', top: 0, zIndex: 50, overflowX: 'auto' }}>
+          <div style={{ display: 'flex', padding: '0 48px', minWidth: 'max-content', alignItems: 'center' }}>
+            {data.morningBrief && (
+              <a href="#apertura" style={{ display: 'inline-block', padding: '11px 18px', color: '#6B88A8', fontFamily: "'Inter', sans-serif", fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                Apertura
+              </a>
+            )}
+            {signals.length > 0 && (
+              <a href="#noticias" style={{ display: 'inline-block', padding: '11px 18px', color: '#6B88A8', fontFamily: "'Inter', sans-serif", fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                Noticias
+              </a>
+            )}
+            {sourcesText && (
+              <a href="#fuentes" style={{ display: 'inline-block', padding: '11px 18px', color: '#6B88A8', fontFamily: "'Inter', sans-serif", fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                Fuentes
+              </a>
+            )}
+            <div style={{ marginLeft: 'auto', padding: '6px 0' }}>
+              <Link href="/inteligencia" style={{
+                display: 'inline-block', padding: '7px 16px',
+                backgroundColor: '#C17F3E', color: '#FFFFFF',
+                fontFamily: "'Inter', sans-serif", fontSize: '0.58rem',
+                letterSpacing: '0.15em', textTransform: 'uppercase',
+                textDecoration: 'none', whiteSpace: 'nowrap',
+              }}>
+                Inteligencia {(hasBoutiques || hasEvents) ? '→' : '→'}
+              </Link>
             </div>
-          </nav>
-        )
-      })()}
+          </div>
+        </nav>
+      )}
 
       {hasNews ? (
         <>
-          {/* MORNING BRIEF */}
+          {/* APERTURA */}
           {data.morningBrief && (
             <section id="apertura" style={{ backgroundColor: '#FFFFFF' }}>
               <div style={{ padding: '52px 48px' }}>
@@ -276,25 +272,25 @@ export default function Home() {
             </section>
           )}
 
-          {/* SEÑALES PRINCIPALES — artículos completos */}
+          {/* NOTICIAS PRINCIPALES */}
           {signals.length > 0 && (
-            <section id="senales" style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
+            <section id="noticias" style={{ backgroundColor: '#F0EBE3', padding: '52px 0 60px' }}>
               <div style={{ padding: '0 48px' }}>
                 <SectionLabel>Noticias Principales</SectionLabel>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
                   {signals.map((signal, i) => {
                     const art = signal.article
                     const catStyle = art ? (CATEGORY_STYLES[art.category] ?? { bg: '#2A3A4A', color: '#FFF' }) : { bg: '#2A3A4A', color: '#FFF' }
+                    const regionStyle = art?.region ? (REGION_STYLES[art.region] ?? { bg: '#3A3A3A', color: '#FFF' }) : null
                     return (
                       <article key={i} style={{
                         backgroundColor: '#FFFFFF',
                         borderTop: '2px solid #C17F3E',
                         boxShadow: '0 1px 6px rgba(13,38,69,0.06)',
                       }}>
-                        {/* Cabecera del artículo */}
                         <div style={{ padding: '28px 36px 0' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
                             <span style={{
                               fontFamily: "'Inter', sans-serif", fontSize: '0.6rem',
                               letterSpacing: '0.2em', color: '#C17F3E', textTransform: 'uppercase', fontWeight: 700,
@@ -311,30 +307,39 @@ export default function Home() {
                                 {art.category}
                               </span>
                             )}
+                            {regionStyle && art?.region && (
+                              <span style={{
+                                backgroundColor: regionStyle.bg, color: regionStyle.color,
+                                fontSize: '0.58rem', letterSpacing: '1.5px',
+                                textTransform: 'uppercase', padding: '3px 8px',
+                                fontFamily: "'Inter', sans-serif", fontWeight: 600,
+                              }}>
+                                {art.region}
+                              </span>
+                            )}
                           </div>
                           <h2 style={{
                             fontFamily: "'Inter', sans-serif", fontWeight: 500,
-                            fontSize: 'clamp(1rem, 2vw, 1.25rem)', color: '#0D2645',
+                            fontSize: 'clamp(1rem, 2vw, 1.22rem)', color: '#0D2645',
                             lineHeight: 1.4, margin: '0 0 20px',
                           }}>
                             {signal.title}
                           </h2>
                         </div>
 
-                        {/* Cuerpo completo del análisis */}
                         <div style={{ padding: '0 36px 28px' }}>
                           {renderParagraphs(signal.body, true)}
                           {art?.whyItMatters && (
                             <p style={{
-                              fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', color: '#3A3A3A',
-                              lineHeight: '1.82', margin: '0 0 14px',
+                              fontFamily: "'Inter', sans-serif", fontSize: '0.88rem', color: '#5A5A5A',
+                              lineHeight: '1.75', margin: '12px 0 0', borderLeft: '3px solid #C17F3E',
+                              paddingLeft: '14px', fontStyle: 'normal',
                             }}>
                               {art.whyItMatters}
                             </p>
                           )}
                         </div>
 
-                        {/* Pie: fuente para referencia */}
                         {art && (
                           <div style={{
                             borderTop: '1px solid #EAE3DA', padding: '14px 36px',
@@ -365,40 +370,26 @@ export default function Home() {
                     )
                   })}
                 </div>
-              </div>
-            </section>
-          )}
 
-          {/* RADAR LATAM — ocultar si solo hay mensaje de fallback */}
-          {latamText && !latamText.startsWith('No se identificaron señales regionales') && (
-            <section id="latam" style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
-              <div style={{ padding: '44px 48px' }}>
-                <SectionLabel>Radar LatAm</SectionLabel>
-                {renderParagraphs(latamText)}
-              </div>
-            </section>
-          )}
-
-          {/* QUANTUM & DAÑOS */}
-          {quantumText && !quantumText.startsWith('No se identificó un ángulo fuerte') && (
-            <section id="quantum" style={{ backgroundColor: '#F7F4F0', borderTop: '1px solid #E8E0D5' }}>
-              <div style={{ padding: '44px 48px' }}>
-                <SectionLabel>Quantum & Daños</SectionLabel>
-                {renderParagraphs(quantumText)}
-              </div>
-            </section>
-          )}
-
-          {/* FIRMAS E INSTITUCIONES — 2 columnas */}
-          {firmasText && (
-            <section id="firmas" style={{ backgroundColor: '#FFFFFF', borderTop: '1px solid #E8E0D5' }}>
-              <div style={{ padding: '44px 48px' }}>
-                <SectionLabel>Firmas e Instituciones</SectionLabel>
-                <div style={{
-                  columnCount: 2, columnGap: '52px',
-                  columnRuleWidth: '1px', columnRuleStyle: 'solid', columnRuleColor: '#E0D9CF',
-                }}>
-                  {renderParagraphs(firmasText)}
+                {/* CTA Inteligencia */}
+                <div style={{ marginTop: '52px', padding: '32px 36px', backgroundColor: '#0D2645', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '20px' }}>
+                  <div>
+                    <div style={{ color: '#C17F3E', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: "'Inter', sans-serif", marginBottom: '6px' }}>
+                      Inteligencia Competitiva
+                    </div>
+                    <div style={{ color: '#FFFFFF', fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '0.95rem' }}>
+                      ¿Qué dicen las boutiques de arbitraje? · Eventos de arbitraje
+                    </div>
+                  </div>
+                  <Link href="/inteligencia" style={{
+                    display: 'inline-block', padding: '10px 24px',
+                    backgroundColor: '#C17F3E', color: '#FFFFFF',
+                    fontFamily: "'Inter', sans-serif", fontSize: '0.6rem',
+                    letterSpacing: '0.15em', textTransform: 'uppercase',
+                    textDecoration: 'none', whiteSpace: 'nowrap',
+                  }}>
+                    Ver Inteligencia →
+                  </Link>
                 </div>
               </div>
             </section>
@@ -424,7 +415,7 @@ export default function Home() {
               En preparación
             </h2>
             <p style={{ color: '#7A7A7A', fontSize: '0.86rem', maxWidth: '360px', margin: '0 auto', lineHeight: '1.75' }}>
-              El sistema publica automáticamente cada martes y viernes a las 8:30 AM.
+              El sistema publica automáticamente cada día hábil a las 8:30 AM.
             </p>
           </div>
         </main>
