@@ -236,18 +236,28 @@ export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult
     )
     .join('\n\n---\n\n')
 
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 12000,
-    messages: [
-      {
-        role: 'user',
-        content: buildPrompt(articlesText, dateStr, editionType),
-      },
-    ],
-  })
+  let fullText = ''
+  const prompt = buildPrompt(articlesText, dateStr, editionType)
 
-  const fullText = response.content[0].type === 'text' ? response.content[0].text : ''
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await client.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 12000,
+        messages: [{ role: 'user', content: prompt }],
+      })
+      fullText = response.content[0].type === 'text' ? response.content[0].text : ''
+      break
+    } catch (err) {
+      const apiErr = err as { error?: { type?: string } }
+      if (attempt < 3 && apiErr?.error?.type === 'overloaded_error') {
+        console.warn(`   Claude sobrecargado — reintentando en ${attempt * 30}s (intento ${attempt}/3)`)
+        await new Promise(r => setTimeout(r, attempt * 30000))
+        continue
+      }
+      throw err
+    }
+  }
 
   const jsonMatch = fullText.match(/<<<JSON_START>>>([\s\S]*?)<<<JSON_END>>>/)
   const briefText = fullText.replace(/<<<JSON_START>>>[\s\S]*?<<<JSON_END>>>/, '').trim()

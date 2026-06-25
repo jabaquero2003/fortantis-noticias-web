@@ -2,7 +2,6 @@ import { fetchAllNews } from '../lib/fetchNews'
 import { fetchAllFirmPages } from '../lib/fetchFirmPages'
 import { fetchFirmSearchResults } from '../lib/fetchFirmSearch'
 import { curateAndSummarize } from '../lib/summarizeNews'
-import { sendNewsEmail } from '../lib/sendEmail'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { join } from 'path'
 
@@ -162,18 +161,7 @@ async function main() {
   writeFileSync(dataPath, JSON.stringify(updated, null, 2), 'utf-8')
   console.log(`Edición #${nextEdition} guardada en news.json`)
 
-  console.log('\nEnviando correo al equipo Fortantis...')
-  try {
-    await sendNewsEmail(brief, nextEdition)
-  } catch (emailErr) {
-    const msg = (emailErr as Error).message
-    console.error('ERROR CORREO:', msg)
-    console.error('   GMAIL_USER configurado:', process.env.GMAIL_USER ? 'SÍ' : 'NO')
-    console.error('   GMAIL_APP_PASSWORD configurado:', process.env.GMAIL_APP_PASSWORD ? 'SÍ' : 'NO')
-    console.warn('   La página web se actualizará de todas formas.')
-  }
-
-  console.log('\nProceso completado\n')
+  console.log('\nProceso completado — el correo se enviará después del deploy de Vercel\n')
 }
 
 main().catch((err) => {
