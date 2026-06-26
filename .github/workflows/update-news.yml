@@ -40,11 +40,8 @@ jobs:
           git pull --rebase -X theirs origin main
           git push
 
-      - name: Esperar deploy de Vercel y enviar correo
-        run: |
-          echo "Esperando deploy de Vercel (120s)..."
-          sleep 120
-          npx tsx scripts/sendEmail.ts
+      - name: Enviar correo
+        run: npx tsx scripts/sendEmail.ts
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
