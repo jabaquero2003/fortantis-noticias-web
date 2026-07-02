@@ -5,6 +5,7 @@ const RECIPIENTS = [
   'samuel.garciacuellar@fortantis.com',
   'juan.olivera@fortantis.com',
   'jose.baquero@fortantis.com',
+  'alfonso.zendejas@fortantis.com',
 ]
 
 const transporter = nodemailer.createTransport({
