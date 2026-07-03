@@ -161,7 +161,8 @@ async function main() {
   writeFileSync(dataPath, JSON.stringify(updated, null, 2), 'utf-8')
   console.log(`Edición #${nextEdition} guardada en news.json`)
 
-  console.log('\nProceso completado — el correo se enviará después del deploy de Vercel\n')
+  console.log('\nProceso completado\n')
+  process.exit(0)
 }
 
 main().catch((err) => {
