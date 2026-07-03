@@ -54,6 +54,8 @@ const FIRM_QUERIES: FirmQuery[] = [
 ]
 
 async function searchFirm(q: FirmQuery): Promise<RawArticle[]> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 10000)
   try {
     const params = new URLSearchParams({
       q: q.query,
@@ -67,8 +69,9 @@ async function searchFirm(q: FirmQuery): Promise<RawArticle[]> {
         'Accept': 'application/json',
         'Accept-Encoding': 'gzip',
       },
-      signal: AbortSignal.timeout(10000),
+      signal: controller.signal,
     })
+    clearTimeout(timer)
 
     if (!response.ok) return []
 
@@ -86,6 +89,7 @@ async function searchFirm(q: FirmQuery): Promise<RawArticle[]> {
         category: q.category,
       }))
   } catch {
+    clearTimeout(timer)
     return []
   }
 }

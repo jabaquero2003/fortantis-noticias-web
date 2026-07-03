@@ -7,31 +7,37 @@ on:
 jobs:
   update-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: write
 
     steps:
       - name: Checkout repositorio
         uses: actions/checkout@v4
+        timeout-minutes: 3
         with:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
+        timeout-minutes: 3
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Instalar dependencias
+        timeout-minutes: 3
         run: npm ci
 
       - name: Generar noticiero
+        timeout-minutes: 10
         run: npx tsx scripts/updateNews.ts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
 
       - name: Guardar y publicar noticias
+        timeout-minutes: 3
         run: |
           git config user.name "Fortantis Bot"
           git config user.email "bot@fortantis.com"
@@ -41,6 +47,7 @@ jobs:
           git push
 
       - name: Enviar correo
+        timeout-minutes: 2
         run: npx tsx scripts/sendEmail.ts
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
