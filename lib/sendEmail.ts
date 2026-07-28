@@ -33,9 +33,9 @@ function categoryColor(category: string): string {
 }
 
 function buildEmailHtml(brief: BriefResult, edition: number, dateStr: string): string {
-  const top5 = brief.articles.slice(0, 5)
+  const top3 = brief.articles.slice(0, 3)
 
-  const signalRows = top5
+  const signalRows = top3
     .map(
       (article, i) => `
     <tr>

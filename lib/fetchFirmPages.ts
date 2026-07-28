@@ -96,6 +96,7 @@ function extractArticlesFromHtml(html: string, source: FirmPageSource): RawArtic
       pubDate: new Date().toISOString(),
       source: source.name,
       category: source.category,
+      isPaywalled: false,
     })
   }
 

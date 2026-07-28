@@ -1,7 +1,9 @@
 import { fetchAllNews } from '../lib/fetchNews'
 import { fetchAllFirmPages } from '../lib/fetchFirmPages'
 import { fetchFirmSearchResults } from '../lib/fetchFirmSearch'
-import { curateAndSummarize } from '../lib/summarizeNews'
+import { curateAndSummarize, curateAndSummarizeV2 } from '../lib/summarizeNews'
+import { structureStories } from '../lib/structureStories'
+import { loadCases, upsertCase, saveCases, ArbitrationCase } from '../lib/caseMemory'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { join } from 'path'
 
@@ -80,6 +82,10 @@ async function main() {
   const usedNormalizedUrls = new Set(usedArticles.map((a) => a.normalizedUrl).filter(Boolean))
   const usedNormalizedTitles = new Set(usedArticles.map((a) => a.normalizedTitle).filter(Boolean))
 
+  // Cargar memoria histórica de casos
+  let cases: ArbitrationCase[] = loadCases()
+  console.log(`   Casos arbitrales conocidos: ${cases.length}`)
+
   console.log('Obteniendo noticias de fuentes RSS...')
   const rssRaw = await fetchAllNews()
   console.log(`   RSS total: ${rssRaw.length} artículos`)
@@ -111,10 +117,59 @@ async function main() {
     process.exit(0)
   }
 
-  console.log('Curación y resumen con Claude AI...')
-  const brief = await curateAndSummarize(freshRaw)
+  // Etapa 1: estructurar artículos en historias con Claude Haiku
+  console.log('Estructurando historias con Claude Haiku (Etapa 1)...')
+  const structuredStories = await structureStories(freshRaw, cases)
+
+  // Etapa 2: redacción editorial con Claude Sonnet
+  console.log('Curación y redacción con Claude Sonnet (Etapa 2)...')
+  const brief =
+    structuredStories.length > 0
+      ? await curateAndSummarizeV2(structuredStories)
+      : await curateAndSummarize(freshRaw) // fallback si Haiku falla
+
+  if (structuredStories.length > 0) {
+    console.log(`   Historias estructuradas: ${structuredStories.length}`)
+  } else {
+    console.log('   Haiku falló — se usó flujo V1 como fallback')
+  }
   console.log(`   Artículos seleccionados: ${brief.articles.length}`)
   console.log(`   Brief generado: ${brief.briefText.length} caracteres\n`)
+
+  // Actualizar memoria de casos con todas las historias arbitrales identificadas
+  if (structuredStories.length > 0) {
+    const today8 = new Date().toISOString().slice(0, 10)
+    for (const story of structuredStories) {
+      if (!story.caseId || !story.isArbitrationCase) continue
+      cases = upsertCase(
+        cases,
+        {
+          caseId: story.caseId,
+          officialNumber: story.caseNumber,
+          name:
+            story.parties?.claimant && story.parties?.respondent
+              ? `${story.parties.claimant} v. ${story.parties.respondent}`
+              : story.headline,
+          claimant: story.parties?.claimant,
+          respondent: story.parties?.respondent,
+          country: story.country,
+          forum: story.forum,
+          sector: story.sector,
+          currentStage: story.proceduralStage ?? 'Desconocido',
+          development: {
+            storyId: story.storyId,
+            editionId: nextEdition,
+            date: today8,
+            stage: story.proceduralStage ?? 'Desconocido',
+            summary: story.newDevelopment,
+          },
+        },
+        nextEdition
+      )
+    }
+    saveCases(cases)
+    console.log(`Memoria de casos actualizada: ${cases.length} casos en total`)
+  }
 
   const today = new Date().toISOString()
 

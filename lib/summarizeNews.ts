@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { RawArticle } from './fetchNews'
+import { StructuredStory } from './structureStories'
 import { randomUUID } from 'crypto'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -89,6 +90,13 @@ SEÑALES DE EXCLUSIÓN:
 
 Si no hay suficientes historias fuertes, publicar menos noticias de alta calidad en lugar de llenar con contenido mediocre. Calidad sobre volumen.
 
+REGLA DE ACCESO (campo ACCESO en cada artículo):
+Para las Noticias Principales: preferir artículos con ACCESO "Libre". Si la única fuente de una historia importante tiene ACCESO "[Paywall]", puedes incluir la historia en el análisis pero sustituye el link "Leer artículo →" por "[Acceso de suscripción]" y no lo pongas como URL principal.
+Para la sección Boutiques: sin restricción — todas las publicaciones de firmas son de acceso libre por naturaleza.
+
+PRIORIDAD DE BOUTIQUES:
+Los artículos con CATEGORÍA "Boutique México", "Boutique LatAm", "Boutique Global" o "Institucional" son la fuente primaria para la sección "¿Qué dicen las Boutiques?". La sección de boutiques tiene igual peso editorial que las Noticias Principales — no es un apéndice. Priorizar publicaciones con sustancia técnica real: artículos de análisis, client alerts, case notes, legal updates. Excluir contrataciones, premios y contenido genérico de firma.
+
 CRITERIOS DE SELECCIÓN — ORDEN DE PRIORIDAD:
 1. GEOGRAFÍA: México primero, luego LatAm, luego España, luego global relevante
 2. RELEVANCIA TEMÁTICA: arbitraje de inversión / comercial internacional, sectores estratégicos, enforcement/anulación
@@ -121,7 +129,7 @@ Uso: Brief interno de inteligencia arbitral
 
 ## 2. Noticias Principales
 
-Selecciona hasta 5 noticias aplicando la prioridad geográfica: México primero, luego LatAm, luego España, luego global solo si es genuinamente relevante. Si hay menos de 5 historias que pasen el filtro editorial, publicar solo las que sean fuertes.
+Selecciona hasta 3 noticias aplicando la prioridad geográfica: México primero, luego LatAm, luego España, luego global solo si es genuinamente relevante. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Preferir artículos con ACCESO Libre.
 
 Para cada noticia:
 
@@ -202,7 +210,7 @@ Después del brief, agrega este bloque JSON sin modificar los delimitadores:
 <<<JSON_END>>>
 
 IMPORTANTE:
-- "articles" contiene exactamente los artículos seleccionados para Noticias Principales, mismo orden, máximo 5.
+- "articles" contiene exactamente los artículos seleccionados para Noticias Principales, mismo orden, máximo 3.
 - "boutiques" puede ser array vacío [] si no hay publicaciones de firmas relevantes en los artículos disponibles.
 - "events" puede ser array vacío [] si no hay eventos identificados.`
 }
@@ -232,7 +240,7 @@ export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult
   const articlesText = raw
     .map(
       (a, i) =>
-        `[${i + 1}] TÍTULO: ${a.title}\nFUENTE: ${a.source}\nFECHA: ${a.pubDate}\nURL: ${a.link}\nEXTRACTO: ${a.contentSnippet}`
+        `[${i + 1}] TÍTULO: ${a.title}\nFUENTE: ${a.source}\nFECHA: ${a.pubDate}\nURL: ${a.link}\nCATEGORÍA: ${a.category}\nACCESO: ${a.isPaywalled ? '[Paywall — no usar como link principal para el lector]' : 'Libre'}\nEXTRACTO: ${a.contentSnippet}`
     )
     .join('\n\n---\n\n')
 
@@ -296,7 +304,265 @@ export async function curateAndSummarize(raw: RawArticle[]): Promise<BriefResult
     }
   }
 
-  articles = articles.slice(0, 5)
+  articles = articles.slice(0, 3)
+
+  return { briefText, morningBrief, articles, boutiques, events }
+}
+
+// ── V2: structured stories pipeline ──────────────────────────────────────────
+
+function buildStoryBlock(story: StructuredStory, index: number): string {
+  const type = story.isNewCase
+    ? 'NUEVO CASO ARBITRAL'
+    : story.isCaseUpdate
+    ? 'ACTUALIZACIÓN DE CASO'
+    : story.isBoutiqueAnalysis
+    ? 'ANÁLISIS DE BOUTIQUE'
+    : story.isEvent
+    ? 'EVENTO'
+    : 'NOTICIA ARBITRAL'
+
+  const lines: string[] = [
+    `═══ HISTORIA ${index + 1} ═══`,
+    `Tipo: ${type} · Geografía: ${story.geography} · País: ${story.country}`,
+  ]
+
+  if (story.parties?.claimant || story.parties?.respondent) {
+    const partes = [story.parties.claimant, story.parties.respondent].filter(Boolean).join(' v. ')
+    lines.push(`Partes: ${partes}`)
+  }
+  const caseInfo = [story.forum, story.caseNumber].filter(Boolean).join(' · Expediente: ')
+  if (caseInfo) lines.push(`Foro: ${caseInfo}`)
+  if (story.sector) lines.push(`Sector: ${story.sector}`)
+  if (story.proceduralStage) lines.push(`Etapa procesal: ${story.proceduralStage}`)
+  lines.push(`Desarrollo: ${story.newDevelopment}`)
+
+  if (story.previousStage) {
+    lines.push(`Contexto histórico: caso ya cubierto — etapa previa conocida: ${story.previousStage}`)
+  } else if (story.isArbitrationCase && story.isNewCase) {
+    lines.push(`Contexto histórico: primera aparición de este caso en el noticiero`)
+  }
+  if (story.firms?.length) lines.push(`Firmas mencionadas: ${story.firms.join(', ')}`)
+  if (story.amounts) lines.push(`Monto: ${story.amounts}`)
+
+  lines.push('')
+  story.sources.forEach((src, i) => {
+    const tierLabel =
+      src.sourceTier === 1
+        ? 'FUENTE OFICIAL'
+        : src.sourceTier === 2
+        ? 'MEDIO ESPECIALIZADO'
+        : src.sourceTier === 3
+        ? 'FIRMA INVOLUCRADA'
+        : 'ANÁLISIS EXTERNO'
+    const access = src.isPaywalled ? '[Paywall]' : '[Libre]'
+    const principal = i === 0 ? ' · PRINCIPAL' : ''
+    lines.push(
+      `${tierLabel}${principal} ${access}\n  Fuente: ${src.source} — "${src.title}"\n  URL: ${src.url}\n  Fecha: ${src.pubDate.slice(0, 10)}\n  Extracto: "${src.contentSnippet.slice(0, 300)}"`
+    )
+  })
+
+  return lines.join('\n')
+}
+
+function buildPromptV2(storiesText: string, dateStr: string, editionType: string): string {
+  return `${SYSTEM_CONTEXT}
+
+FECHA ACTUAL: ${dateStr}
+TIPO DE EDICIÓN: ${editionType}
+
+Las siguientes historias han sido pre-agrupadas y estructuradas. Cada historia incluye todas sus fuentes consolidadas, clasificadas por nivel de confiabilidad. Para las Noticias Principales, prefiere siempre la fuente PRINCIPAL marcada como [Libre]; si la historia solo tiene fuentes [Paywall], inclúyela pero sustituye el link por "[Acceso de suscripción]".
+
+Las historias de tipo ANÁLISIS DE BOUTIQUE son la fuente primaria para la sección "¿Qué dicen las Boutiques?".
+Las historias de tipo EVENTO son la fuente primaria para la sección "Eventos de Arbitraje".
+
+HISTORIAS ESTRUCTURADAS:
+${storiesText}
+
+---
+
+Genera el "Noticiero Fortantis" completo con la estructura exacta indicada. Escribe en prosa fluida. Sin sub-etiquetas internas. Integra toda la información en párrafos naturales.
+
+# Noticiero Fortantis
+
+Fecha de edición: ${dateStr}
+Uso: Brief interno de inteligencia arbitral
+
+## 1. Morning Brief
+
+2-3 oraciones ejecutivas: señal dominante del día, geografía o sector que lidera, por qué vale la pena leer esta edición. Sin relleno. Directo.
+
+## 2. Noticias Principales
+
+Selecciona hasta 3 historias aplicando la prioridad geográfica: México primero, luego LatAm, luego España, luego global solo si es genuinamente relevante. Prioriza historias con tipo NUEVO CASO ARBITRAL o ACTUALIZACIÓN DE CASO. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Prefiere fuentes [Libre] para el link principal.
+
+Para cada noticia:
+
+### Noticia [N]: [Título claro en español]
+
+**Fuente:** [nombre] · **Fecha:** [fecha] · **País/Región:** [México | LatAm | España | Global] · **[Leer artículo →](URL)**
+
+[Tres párrafos en prosa fluida, sin sub-títulos:
+Párrafo 1 — El hecho: quién es el actor, qué ocurrió, en qué foro o jurisdicción, contra quién, con qué resultado. Cifras precisas.
+Párrafo 2 — El contexto: dónde encaja en la práctica arbitral, precedentes relevantes, tensiones doctrinales o regulatorias. Si existe contexto histórico del caso, incorpóralo.
+Párrafo 3 — La señal: qué conviene monitorear, qué patrón refuerza o rompe, qué implica para quien asesora disputas complejas.]
+
+## 3. ¿Qué dicen las Boutiques de Arbitraje?
+
+Usa las historias de tipo ANÁLISIS DE BOUTIQUE. Para cada publicación: firma, autor si está disponible, tipo de publicación, resumen sustantivo de 2-4 oraciones con valor real para Fortantis, jurisdicción/región si aplica, y link.
+
+Incluir solo publicaciones con sustancia técnica real. Excluir contrataciones, rankings, premios o contenido genérico de firma.
+
+Si no hay publicaciones relevantes, escribir exactamente:
+"Sin publicaciones relevantes de firmas identificadas en esta edición."
+
+## 4. Eventos de Arbitraje
+
+Usa las historias de tipo EVENTO. Para cada uno: nombre, organizador, fecha, lugar o formato online, región, y por qué puede ser útil para Fortantis. Conciso.
+
+Si no hay eventos identificados, escribir exactamente:
+"Sin eventos de arbitraje identificados en esta edición."
+
+## 5. Fuentes
+
+Lista completa de todas las fuentes revisadas:
+- [Título] — [Fuente] — [Fecha] — [Link]
+
+---
+
+Después del brief, agrega este bloque JSON sin modificar los delimitadores:
+
+<<<JSON_START>>>
+{
+  "morningBrief": "texto de apertura, una sola línea sin saltos de línea, máximo 3 oraciones ejecutivas",
+  "articles": [
+    {
+      "title": "título en español, máximo 90 caracteres",
+      "summary": "resumen ejecutivo, máximo 2 oraciones, máximo 200 caracteres",
+      "source": "nombre de la fuente",
+      "sourceUrl": "URL exacta del artículo — preferir fuente [Libre]",
+      "publishedAt": "YYYY-MM-DD",
+      "category": "Inversión Internacional | Arbitraje Comercial | Doctrina y Análisis | Institucional | Regulación",
+      "region": "México | LatAm | España | Global",
+      "whyItMatters": "por qué importa para Fortantis, 1-2 oraciones directas"
+    }
+  ],
+  "boutiques": [
+    {
+      "title": "título de la publicación",
+      "firm": "nombre exacto de la firma o boutique",
+      "author": "nombre del autor si está disponible, omitir si no se menciona",
+      "date": "YYYY-MM-DD",
+      "sourceType": "article | client alert | legal update | newsletter | case note | report | LinkedIn post",
+      "jurisdiction": "jurisdicción o región si aplica, omitir si no aplica",
+      "summary": "resumen sustantivo de 2-4 oraciones con valor real para Fortantis",
+      "link": "URL exacta"
+    }
+  ],
+  "events": [
+    {
+      "name": "nombre del evento",
+      "organizer": "organizador",
+      "date": "fecha o rango de fechas",
+      "location": "ciudad, país o 'Online'",
+      "region": "México | LatAm | USA | Europa | Global",
+      "link": "URL de registro o información"
+    }
+  ]
+}
+<<<JSON_END>>>
+
+IMPORTANTE:
+- "articles" contiene exactamente los artículos seleccionados para Noticias Principales, mismo orden, máximo 3.
+- "boutiques" puede ser array vacío [] si no hay publicaciones de firmas relevantes.
+- "events" puede ser array vacío [] si no hay eventos identificados.`
+}
+
+export async function curateAndSummarizeV2(stories: StructuredStory[]): Promise<BriefResult> {
+  if (stories.length === 0) {
+    return {
+      briefText: '',
+      morningBrief: 'No se encontraron historias para esta edición.',
+      articles: [],
+      boutiques: [],
+      events: [],
+    }
+  }
+
+  const today = new Date()
+  const dateStr = today.toLocaleDateString('es-ES', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+  const dayNum = today.getDay()
+  const dayNames = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+  const editionType = dayNames[dayNum] ?? today.toLocaleDateString('es-ES', { weekday: 'long' })
+
+  const storiesText = stories.map((s, i) => buildStoryBlock(s, i)).join('\n\n')
+  const prompt = buildPromptV2(storiesText, dateStr, editionType)
+
+  let fullText = ''
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await client.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 12000,
+        messages: [{ role: 'user', content: prompt }],
+      })
+      fullText = response.content[0].type === 'text' ? response.content[0].text : ''
+      break
+    } catch (err) {
+      const apiErr = err as { error?: { type?: string } }
+      if (attempt < 3 && apiErr?.error?.type === 'overloaded_error') {
+        console.warn(`   Claude sobrecargado — reintentando en ${attempt * 30}s (intento ${attempt}/3)`)
+        await new Promise((r) => setTimeout(r, attempt * 30000))
+        continue
+      }
+      throw err
+    }
+  }
+
+  const jsonMatch = fullText.match(/<<<JSON_START>>>([\s\S]*?)<<<JSON_END>>>/)
+  const briefText = fullText.replace(/<<<JSON_START>>>[\s\S]*?<<<JSON_END>>>/, '').trim()
+
+  let morningBrief = ''
+  let articles: CuratedArticle[] = []
+  let boutiques: BoutiquePublication[] = []
+  let events: ArbitrationEvent[] = []
+
+  if (jsonMatch) {
+    try {
+      const parsed = JSON.parse(jsonMatch[1].trim())
+      morningBrief = parsed.morningBrief ?? ''
+      articles = (parsed.articles ?? []).map((a: Omit<CuratedArticle, 'id'>) => ({
+        ...a,
+        id: randomUUID(),
+      }))
+      boutiques = (parsed.boutiques ?? []).map((b: Omit<BoutiquePublication, 'id'>) => ({
+        ...b,
+        id: randomUUID(),
+      }))
+      events = (parsed.events ?? []).map((e: Omit<ArbitrationEvent, 'id'>) => ({
+        ...e,
+        id: randomUUID(),
+      }))
+    } catch {
+      const arrayMatch = jsonMatch[1].match(/\[[\s\S]*\]/)
+      if (arrayMatch) {
+        try {
+          articles = JSON.parse(arrayMatch[0]).map((a: Omit<CuratedArticle, 'id'>) => ({
+            ...a,
+            id: randomUUID(),
+          }))
+        } catch {}
+      }
+    }
+  }
+
+  articles = articles.slice(0, 3)
 
   return { briefText, morningBrief, articles, boutiques, events }
 }

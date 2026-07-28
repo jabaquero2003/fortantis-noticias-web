@@ -87,6 +87,7 @@ async function searchFirm(q: FirmQuery): Promise<RawArticle[]> {
         pubDate: r.page_age ?? new Date().toISOString(),
         source: q.firm,
         category: q.category,
+        isPaywalled: false,
       }))
   } catch {
     clearTimeout(timer)

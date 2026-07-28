@@ -158,7 +158,7 @@ function extractIndividualSignals(briefText: string): { title: string; body: str
     signals.push({ title, body })
   }
 
-  return signals.slice(0, 5).map((s, i) => ({
+  return signals.slice(0, 3).map((s, i) => ({
     ...s,
     article: data.articles?.[i],
   }))

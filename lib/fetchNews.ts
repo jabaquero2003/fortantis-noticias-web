@@ -5,6 +5,19 @@ const parser = new Parser({
   headers: { 'User-Agent': 'Fortantis-NewsBot/1.0' },
 })
 
+const PAYWALLED_DOMAINS = new Set([
+  'globalarbitrationreview.com',
+  'kluwerarbitration.com',
+])
+
+function isSourcePaywalled(url: string): boolean {
+  try {
+    return PAYWALLED_DOMAINS.has(new URL(url).hostname.replace('www.', ''))
+  } catch {
+    return false
+  }
+}
+
 const RSS_SOURCES = [
   {
     name: 'Global Arbitration Review',
@@ -42,11 +55,6 @@ const RSS_SOURCES = [
     category: 'Noticias Legales',
   },
   {
-    name: 'Aceris Law — Arbitration',
-    url: 'https://acerislaw.com/feed/',
-    category: 'Doctrina y Análisis',
-  },
-  {
     name: 'GAR — Latin America',
     url: 'https://globalarbitrationreview.com/rss?region=latin-america',
     category: 'Arbitraje Internacional',
@@ -76,11 +84,6 @@ const RSS_SOURCES = [
     url: 'https://www.threecrownsllp.com/feed/',
     category: 'Boutique Global',
   },
-  {
-    name: 'Aceris Law — Arbitration',
-    url: 'https://acerislaw.com/feed/',
-    category: 'Doctrina y Análisis',
-  },
 ]
 
 export interface RawArticle {
@@ -90,6 +93,7 @@ export interface RawArticle {
   pubDate: string
   source: string
   category: string
+  isPaywalled: boolean
 }
 
 const FETCH_TIMEOUT_MS = 12000
@@ -134,6 +138,7 @@ export async function fetchAllNews(): Promise<RawArticle[]> {
           pubDate: item.pubDate ?? new Date().toISOString(),
           source: source.name,
           category: source.category,
+          isPaywalled: isSourcePaywalled(source.url),
         })
       }
       console.log(`   ✓ ${source.name}: ${recent.length} artículos`)
