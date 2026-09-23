@@ -1,1 +1,48 @@
-{"cases":[]}
+{
+  "cases": [
+    {
+      "caseId": "accionistas-mayoritarios-de-yukos-oil-company-v-rusia",
+      "name": "accionistas mayoritarios de Yukos Oil Company v. Rusia",
+      "claimant": "accionistas mayoritarios de Yukos Oil Company",
+      "respondent": "Rusia",
+      "country": "Rusia",
+      "forum": "Corte de Apelaciones de Singapur",
+      "sector": "Energía",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "3b23bc6e889579f7",
+          "editionId": 44,
+          "date": "2026-09-23",
+          "stage": "Enforcement",
+          "summary": "Corte de Apelaciones de Singapur rechaza defensa de inmunidad estatal y permite ejecución de laudos por USD 66 mil millones contra Rusia."
+        }
+      ],
+      "firstSeenEdition": 44,
+      "lastSeenEdition": 44,
+      "lastUpdated": "2026-09-23T15:33:11.232Z"
+    },
+    {
+      "caseId": "compa-a-kuwait-v-libia",
+      "name": "compañía kuwaití v. Libia",
+      "claimant": "compañía kuwaití",
+      "respondent": "Libia",
+      "country": "Libia",
+      "forum": "Corte de París",
+      "sector": "Petróleo",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "1dd9516287abd499",
+          "editionId": 44,
+          "date": "2026-09-23",
+          "stage": "Enforcement",
+          "summary": "Corte francesa mantiene embargo sobre activos de empresa estatal petrolera libia para ejecutar laudo de mil millones de dólares."
+        }
+      ],
+      "firstSeenEdition": 44,
+      "lastSeenEdition": 44,
+      "lastUpdated": "2026-09-23T15:33:11.232Z"
+    }
+  ]
+}
