@@ -54,10 +54,11 @@ AUDIENCIA: Socios, directores legales y expertos en daños de Fortantis. Conocen
 PRIORIDAD GEOGRÁFICA OBLIGATORIA — en este orden estricto:
 1. México — máxima prioridad absoluta
 2. América Latina — alta prioridad
-3. España — alta prioridad
-4. Global — solo si es genuinamente importante, precedente clave, o directamente conectado con las áreas de práctica de Fortantis
+3. Estados Unidos — alta prioridad (cortes federales, enforcement de laudos, arbitraje comercial con partes latinas, SDNY, Second Circuit)
+4. España — prioridad media (conexión cultural e idiomática con la práctica de Fortantis)
+5. Global — solo si es genuinamente importante, precedente clave, o directamente conectado con las áreas de práctica de Fortantis
 
-Historias sobre disputas Rusia/Europa, Iran/Bahrain u otros casos globales sin conexión con México, LatAm o España NO deben liderar el noticiero, salvo que sean históricamente excepcionales o relevantes para la práctica de Fortantis.
+Historias sobre disputas Rusia/Europa, Iran/Bahrain u otros casos globales sin conexión con México, LatAm, USA o España NO deben liderar el noticiero, salvo que sean históricamente excepcionales o relevantes para la práctica de Fortantis.
 
 TONO Y ESTILO OBLIGATORIO:
 - Narrativo y riguroso. Cada noticia cuenta una historia con contexto, tensión y señal accionable.
@@ -98,7 +99,7 @@ PRIORIDAD DE BOUTIQUES:
 Los artículos con CATEGORÍA "Boutique México", "Boutique LatAm", "Boutique Global" o "Institucional" son la fuente primaria para la sección "¿Qué dicen las Boutiques?". La sección de boutiques tiene igual peso editorial que las Noticias Principales — no es un apéndice. Priorizar publicaciones con sustancia técnica real: artículos de análisis, client alerts, case notes, legal updates. Excluir contrataciones, premios y contenido genérico de firma.
 
 CRITERIOS DE SELECCIÓN — ORDEN DE PRIORIDAD:
-1. GEOGRAFÍA: México primero, luego LatAm, luego España, luego global relevante
+1. GEOGRAFÍA: México primero, luego LatAm, luego Estados Unidos, luego España, luego global relevante
 2. RELEVANCIA TEMÁTICA: arbitraje de inversión / comercial internacional, sectores estratégicos, enforcement/anulación
 3. RECENCIA: entre historias de similar relevancia, priorizar la más reciente
 
@@ -129,7 +130,7 @@ Uso: Brief interno de inteligencia arbitral
 
 ## 2. Noticias Principales
 
-Selecciona hasta 3 noticias aplicando la prioridad geográfica: México primero, luego LatAm, luego España, luego global solo si es genuinamente relevante. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Preferir artículos con ACCESO Libre.
+Selecciona hasta 3 noticias aplicando la prioridad geográfica: México primero, luego LatAm, luego Estados Unidos, luego España, luego global solo si es genuinamente relevante. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Preferir artículos con ACCESO Libre.
 
 Para cada noticia:
 
@@ -180,7 +181,7 @@ Después del brief, agrega este bloque JSON sin modificar los delimitadores:
       "sourceUrl": "URL exacta del artículo",
       "publishedAt": "YYYY-MM-DD",
       "category": "Inversión Internacional | Arbitraje Comercial | Doctrina y Análisis | Institucional | Regulación",
-      "region": "México | LatAm | España | Global",
+      "region": "México | LatAm | USA | España | Global",
       "whyItMatters": "por qué importa para Fortantis, 1-2 oraciones directas"
     }
   ],
@@ -394,7 +395,7 @@ Uso: Brief interno de inteligencia arbitral
 
 ## 2. Noticias Principales
 
-Selecciona hasta 3 historias aplicando la prioridad geográfica: México primero, luego LatAm, luego España, luego global solo si es genuinamente relevante. Prioriza historias con tipo NUEVO CASO ARBITRAL o ACTUALIZACIÓN DE CASO. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Prefiere fuentes [Libre] para el link principal.
+Selecciona hasta 3 historias aplicando la prioridad geográfica: México primero, luego LatAm, luego Estados Unidos, luego España, luego global solo si es genuinamente relevante. Prioriza historias con tipo NUEVO CASO ARBITRAL o ACTUALIZACIÓN DE CASO. Si hay menos de 3 historias que pasen el filtro editorial, publicar solo las que sean fuertes. Prefiere fuentes [Libre] para el link principal.
 
 Para cada noticia:
 
@@ -443,7 +444,7 @@ Después del brief, agrega este bloque JSON sin modificar los delimitadores:
       "sourceUrl": "URL exacta del artículo — preferir fuente [Libre]",
       "publishedAt": "YYYY-MM-DD",
       "category": "Inversión Internacional | Arbitraje Comercial | Doctrina y Análisis | Institucional | Regulación",
-      "region": "México | LatAm | España | Global",
+      "region": "México | LatAm | USA | España | Global",
       "whyItMatters": "por qué importa para Fortantis, 1-2 oraciones directas"
     }
   ],

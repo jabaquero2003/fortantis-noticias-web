@@ -20,7 +20,7 @@ export interface StructuredStory {
   storyId: string
   caseId?: string
   headline: string
-  geography: 'México' | 'LatAm' | 'España' | 'Global'
+  geography: 'México' | 'LatAm' | 'USA' | 'España' | 'Global'
   country: string
   parties?: { claimant?: string; respondent?: string }
   forum?: string
@@ -114,7 +114,7 @@ JERARQUÍA sourceTiers (uno por cada índice en articleIndices, mismo orden):
 3 = firma directamente involucrada en el caso
 4 = firma externa analizando / agregador general
 
-GEOGRAFÍA del tema principal: "México" | "LatAm" | "España" | "Global"
+GEOGRAFÍA del tema principal: "México" | "LatAm" | "USA" | "España" | "Global"
 
 EXTRACCIÓN DE ENTIDADES — REGLA DE ORO:
 Extrae SOLO lo que está EXPLÍCITAMENTE escrito en título o extracto del artículo.
@@ -244,9 +244,9 @@ export async function structureStories(
       !!hs.proceduralStage &&
       existingCase.currentStage !== hs.proceduralStage
 
-    const validGeographies = ['México', 'LatAm', 'España', 'Global'] as const
+    const validGeographies = ['México', 'LatAm', 'USA', 'España', 'Global'] as const
     const geography = validGeographies.includes(hs.geography as typeof validGeographies[number])
-      ? (hs.geography as 'México' | 'LatAm' | 'España' | 'Global')
+      ? (hs.geography as 'México' | 'LatAm' | 'USA' | 'España' | 'Global')
       : 'Global'
 
     const partiesClean =
