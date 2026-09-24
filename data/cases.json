@@ -43,6 +43,69 @@
       "firstSeenEdition": 44,
       "lastSeenEdition": 44,
       "lastUpdated": "2026-09-23T15:33:11.232Z"
+    },
+    {
+      "caseId": "yukos-affiliate-v-russia",
+      "name": "Yukos affiliate v. Russia",
+      "claimant": "Yukos affiliate",
+      "respondent": "Russia",
+      "country": "Reino Unido",
+      "sector": "Energía",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "c6b8b7ea70ec2540",
+          "editionId": 45,
+          "date": "2026-09-24",
+          "stage": "Enforcement",
+          "summary": "Un juez inglés falló que Rusia no está impedida de alegar inmunidad soberana como defensa en la ejecución de un laudo de USD 5 mil millones bajo el Tratado de la Carta de la Energía."
+        }
+      ],
+      "firstSeenEdition": 45,
+      "lastSeenEdition": 45,
+      "lastUpdated": "2026-09-24T14:33:22.776Z"
+    },
+    {
+      "caseId": "malaysian-infrastructure-company-v-india",
+      "name": "Malaysian infrastructure company v. India",
+      "claimant": "Malaysian infrastructure company",
+      "respondent": "India",
+      "country": "India",
+      "sector": "Infraestructura",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "4886c1acd27d2c67",
+          "editionId": 45,
+          "date": "2026-09-24",
+          "stage": "Enforcement",
+          "summary": "Empresa malasia amenaza con demanda de USD 125 millones contra India por retrasos judiciales en la ejecución de laudo arbitral emitido hace 12 años."
+        }
+      ],
+      "firstSeenEdition": 45,
+      "lastSeenEdition": 45,
+      "lastUpdated": "2026-09-24T14:33:22.776Z"
+    },
+    {
+      "caseId": "us-distressed-debt-investor-v-ukraine",
+      "name": "US distressed debt investor v. Ukraine",
+      "claimant": "US distressed debt investor",
+      "respondent": "Ukraine",
+      "country": "Ukraine",
+      "forum": "ICSID",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "ab117dca55bdd7f5",
+          "editionId": 45,
+          "date": "2026-09-24",
+          "stage": "Registro",
+          "summary": "Ucrania contrata a Queritius para defenderse en demanda de ICSID de inversor estadounidense vinculado a Rusia."
+        }
+      ],
+      "firstSeenEdition": 45,
+      "lastSeenEdition": 45,
+      "lastUpdated": "2026-09-24T14:33:22.776Z"
     }
   ]
 }
