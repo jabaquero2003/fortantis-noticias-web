@@ -106,6 +106,113 @@
       "firstSeenEdition": 45,
       "lastSeenEdition": 45,
       "lastUpdated": "2026-09-24T14:33:22.776Z"
+    },
+    {
+      "caseId": "inversores-inmobiliarios-saud-es-v-egipto",
+      "name": "Inversores inmobiliarios saudíes v. Egipto",
+      "claimant": "Inversores inmobiliarios saudíes",
+      "respondent": "Egipto",
+      "country": "Egipto",
+      "sector": "Bienes raíces",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "0cbdf26ea1d4c933",
+          "editionId": 46,
+          "date": "2026-09-25",
+          "stage": "Laudo",
+          "summary": "Tribunal dividido rechazó que consentimiento de arbitraje pueda importarse de otro tratado mediante cláusula de nación más favorecida."
+        }
+      ],
+      "firstSeenEdition": 46,
+      "lastSeenEdition": 46,
+      "lastUpdated": "2026-09-25T14:33:24.267Z"
+    },
+    {
+      "caseId": "irak-v-turqu-a",
+      "name": "Irak v. Turquía",
+      "claimant": "Irak",
+      "respondent": "Turquía",
+      "country": "Irak",
+      "forum": "ICC",
+      "sector": "Petróleo y gas",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "5d88a769e3603b79",
+          "editionId": 46,
+          "date": "2026-09-25",
+          "stage": "Enforcement",
+          "summary": "Magistrado estadounidense recomendó confirmar laudo de la ICC en disputa multimillonaria sobre exportaciones de crudo, rechazando argumentos de Turquía."
+        }
+      ],
+      "firstSeenEdition": 46,
+      "lastSeenEdition": 46,
+      "lastUpdated": "2026-09-25T14:33:24.267Z"
+    },
+    {
+      "caseId": "co-inversor-v-dos-accionistas-en-veh-culo-de-cotizaci-n",
+      "name": "Co-inversor v. Dos accionistas en vehículo de cotización",
+      "claimant": "Co-inversor",
+      "respondent": "Dos accionistas en vehículo de cotización",
+      "country": "Hong Kong",
+      "forum": "HKIAC",
+      "sector": "Financiero",
+      "currentStage": "Anulación",
+      "developments": [
+        {
+          "storyId": "f5e801264dc8ebc0",
+          "editionId": 46,
+          "date": "2026-09-25",
+          "stage": "Anulación",
+          "summary": "Corte de Hong Kong anuló laudo que ordenaba a dos accionistas pagar US$480 millones por OPI fallida, hallando que tribunal no abordó adecuadamente defensa de estoppel."
+        }
+      ],
+      "firstSeenEdition": 46,
+      "lastSeenEdition": 46,
+      "lastUpdated": "2026-09-25T14:33:24.267Z"
+    },
+    {
+      "caseId": "empresa-de-nube-de-datos-estadounidense-v-exempleado",
+      "name": "Empresa de nube de datos estadounidense v. Exempleado",
+      "claimant": "Empresa de nube de datos estadounidense",
+      "respondent": "Exempleado",
+      "country": "Estados Unidos",
+      "sector": "Tecnología",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "247eb2808354056e",
+          "editionId": 46,
+          "date": "2026-09-25",
+          "stage": "Otro",
+          "summary": "Empresa de nube de datos ganó compulsión a arbitraje de demanda de US$100 millones de exempleado por fraude presuntamente vinculado a empresa de criptomonedas."
+        }
+      ],
+      "firstSeenEdition": 46,
+      "lastSeenEdition": 46,
+      "lastUpdated": "2026-09-25T14:33:24.267Z"
+    },
+    {
+      "caseId": "inversor-estadounidense-en-deuda-angustiada-v-ucrania",
+      "name": "Inversor estadounidense en deuda angustiada v. Ucrania",
+      "claimant": "Inversor estadounidense en deuda angustiada",
+      "respondent": "Ucrania",
+      "country": "Ucrania",
+      "forum": "ICSID",
+      "currentStage": "Constitución del tribunal",
+      "developments": [
+        {
+          "storyId": "e9ee0c9e468d6cb7",
+          "editionId": 46,
+          "date": "2026-09-25",
+          "stage": "Constitución del tribunal",
+          "summary": "Ucrania instruyó a boutique europea Queritius para su defensa en demanda ICSID de inversor estadounidense que el estado alega está vinculado a Rusia."
+        }
+      ],
+      "firstSeenEdition": 46,
+      "lastSeenEdition": 46,
+      "lastUpdated": "2026-09-25T14:33:24.267Z"
     }
   ]
 }
