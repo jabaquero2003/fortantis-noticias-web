@@ -213,6 +213,92 @@
       "firstSeenEdition": 46,
       "lastSeenEdition": 46,
       "lastUpdated": "2026-09-25T14:33:24.267Z"
+    },
+    {
+      "caseId": "inversores-qatar-es-v-arabia-saudita",
+      "name": "Inversores qataríes v. Arabia Saudita",
+      "claimant": "Inversores qataríes",
+      "respondent": "Arabia Saudita",
+      "country": "Arabia Saudita",
+      "forum": "Corte de Londres",
+      "sector": "Inversión",
+      "currentStage": "Anulación",
+      "developments": [
+        {
+          "storyId": "3746dffe010a58ba",
+          "editionId": 47,
+          "date": "2026-09-28",
+          "stage": "Anulación",
+          "summary": "Una corte londinense anuló un laudo de USD 100 millones a favor de inversores qataríes contra Arabia Saudita, encontrando que el acuerdo de inversión de la OCI contenía solo una oferta condicional de arbitraje no activada."
+        }
+      ],
+      "firstSeenEdition": 47,
+      "lastSeenEdition": 47,
+      "lastUpdated": "2026-09-28T14:33:16.110Z"
+    },
+    {
+      "caseId": "grupo-minero-suizo-v-liberia",
+      "name": "Grupo minero suizo v. Liberia",
+      "claimant": "Grupo minero suizo",
+      "respondent": "Liberia",
+      "country": "Liberia",
+      "sector": "Minería",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "5c0300028267d9b3",
+          "editionId": 47,
+          "date": "2026-09-28",
+          "stage": "Laudo",
+          "summary": "Un tribunal UNCITRAL desestimó la mayor parte de una demanda de inversión por USD 200 millones de un grupo minero suizo contra Liberia sobre derechos de hierro posteriormente asignados a un competidor."
+        }
+      ],
+      "firstSeenEdition": 47,
+      "lastSeenEdition": 47,
+      "lastUpdated": "2026-09-28T14:33:16.110Z"
+    },
+    {
+      "caseId": "blasket-renewables-investment-subsidiaria-toyota-v-espa-a",
+      "name": "Blasket Renewables Investment (subsidiaria Toyota) v. España",
+      "claimant": "Blasket Renewables Investment (subsidiaria Toyota)",
+      "respondent": "España",
+      "country": "España",
+      "forum": "Corte de EE.UU.",
+      "sector": "Energía renovable",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "e2cb78bf4bee043e",
+          "editionId": 47,
+          "date": "2026-09-28",
+          "stage": "Enforcement",
+          "summary": "Una corte estadounidense ejecutó un laudo ICSID de €106 millones ganado por subsidiaria de Toyota contra España tras rechazar la contención estatal sobre invalidez de cesión a Blasket Renewables."
+        }
+      ],
+      "firstSeenEdition": 47,
+      "lastSeenEdition": 47,
+      "lastUpdated": "2026-09-28T14:33:16.110Z"
+    },
+    {
+      "caseId": "exempleado-v-empresa-tecnol-gica-de-nube-de-datos",
+      "name": "Exempleado v. Empresa tecnológica de nube de datos",
+      "claimant": "Exempleado",
+      "respondent": "Empresa tecnológica de nube de datos",
+      "country": "USA",
+      "sector": "Tecnología",
+      "currentStage": "Constitución del tribunal",
+      "developments": [
+        {
+          "storyId": "7d93ad7c2863cb08",
+          "editionId": 47,
+          "date": "2026-09-28",
+          "stage": "Constitución del tribunal",
+          "summary": "Una empresa estadounidense de nube de datos logró competencia obligatoria de arbitraje de demanda de USD 100 millones de exempleado sobre fraude en venture de criptomonedas."
+        }
+      ],
+      "firstSeenEdition": 47,
+      "lastSeenEdition": 47,
+      "lastUpdated": "2026-09-28T14:33:16.110Z"
     }
   ]
 }
