@@ -299,6 +299,26 @@
       "firstSeenEdition": 47,
       "lastSeenEdition": 47,
       "lastUpdated": "2026-09-28T14:33:16.110Z"
+    },
+    {
+      "caseId": "familia-iran-v-corea-del-sur",
+      "name": "Familia iraní v. Corea del Sur",
+      "claimant": "Familia iraní",
+      "respondent": "Corea del Sur",
+      "country": "Corea del Sur",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "3cf704f3bf5ad0e4",
+          "editionId": 50,
+          "date": "2026-10-01",
+          "stage": "Laudo",
+          "summary": "Un tribunal rechazó demanda de US$566 millones presentada por una familia iraní contra Corea del Sur por retrasos en el pago de un laudo previo, hallando razonable el retraso por sanciones económicas estadounidenses."
+        }
+      ],
+      "firstSeenEdition": 50,
+      "lastSeenEdition": 50,
+      "lastUpdated": "2026-10-01T14:33:13.192Z"
     }
   ]
 }
