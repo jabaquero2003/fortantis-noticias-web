@@ -319,6 +319,47 @@
       "firstSeenEdition": 50,
       "lastSeenEdition": 50,
       "lastUpdated": "2026-10-01T14:33:13.192Z"
+    },
+    {
+      "caseId": "elliott-associates-v-south-korea",
+      "name": "Elliott Associates v. South Korea",
+      "claimant": "Elliott Associates",
+      "respondent": "South Korea",
+      "country": "Corea del Sur",
+      "forum": "UNCITRAL",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "92ba4a88e84ef6fe",
+          "editionId": 51,
+          "date": "2026-10-02",
+          "stage": "Laudo",
+          "summary": "Un tribunal UNCITRAL reafirmó que Corea del Sur debe pagar daños a Elliott Associates por interferencia ilegal en una fusión de Samsung, tras ser orientado por juez británico a reconsiderar un laudo de hace tres años."
+        }
+      ],
+      "firstSeenEdition": 51,
+      "lastSeenEdition": 51,
+      "lastUpdated": "2026-10-02T14:33:38.033Z"
+    },
+    {
+      "caseId": "iranian-family-v-south-korea",
+      "name": "Iranian family v. South Korea",
+      "claimant": "Iranian family",
+      "respondent": "South Korea",
+      "country": "Corea del Sur",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "47082b007d4e887f",
+          "editionId": 51,
+          "date": "2026-10-02",
+          "stage": "Laudo",
+          "summary": "Corea del Sur derrotó demanda de tratado de inversión de US$566 millones de familia iraní sobre retraso estatal en pago de laudo anterior, encontrando tribunal que retraso fue razonable por sanciones económicas estadounidenses."
+        }
+      ],
+      "firstSeenEdition": 51,
+      "lastSeenEdition": 51,
+      "lastUpdated": "2026-10-02T14:33:38.033Z"
     }
   ]
 }
