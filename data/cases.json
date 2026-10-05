@@ -360,6 +360,28 @@
       "firstSeenEdition": 51,
       "lastSeenEdition": 51,
       "lastUpdated": "2026-10-02T14:33:38.033Z"
+    },
+    {
+      "caseId": "grupo-energ-tico-listado-en-toronto-v-antiguo-socio-en-proyecto-de-gas",
+      "name": "Grupo energético listado en Toronto v. antiguo socio en proyecto de gas",
+      "claimant": "Grupo energético listado en Toronto",
+      "respondent": "antiguo socio en proyecto de gas",
+      "country": "Tanzania",
+      "forum": "LCIA",
+      "sector": "Energía / Gas",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "a0b047fa05a7b7fc",
+          "editionId": 52,
+          "date": "2026-10-05",
+          "stage": "Otro",
+          "summary": "Un grupo energético listado en Toronto informó que las reclamaciones por US$164 millones en un arbitraje LCIA contra un antiguo socio fueron retiradas."
+        }
+      ],
+      "firstSeenEdition": 52,
+      "lastSeenEdition": 52,
+      "lastUpdated": "2026-10-05T14:33:58.355Z"
     }
   ]
 }
