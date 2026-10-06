@@ -382,6 +382,48 @@
       "firstSeenEdition": 52,
       "lastSeenEdition": 52,
       "lastUpdated": "2026-10-05T14:33:58.355Z"
+    },
+    {
+      "caseId": "hyundai-s-construction-arm-v-turkish-subcontractor",
+      "name": "Hyundai's construction arm v. Turkish subcontractor",
+      "claimant": "Hyundai's construction arm",
+      "respondent": "Turkish subcontractor",
+      "country": "Qatar",
+      "forum": "ICC",
+      "sector": "Construction",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "445ede66c737ef18",
+          "editionId": 53,
+          "date": "2026-10-06",
+          "stage": "Registro",
+          "summary": "Hyundai's construction division filed a US$200 million ICC claim against a Turkish subcontractor over electromechanical works at a high-rise development in Qatar."
+        }
+      ],
+      "firstSeenEdition": 53,
+      "lastSeenEdition": 53,
+      "lastUpdated": "2026-10-06T14:33:26.329Z"
+    },
+    {
+      "caseId": "tata-power-v-kleros-capital-partners",
+      "name": "Tata Power v. Kleros Capital Partners",
+      "claimant": "Tata Power",
+      "respondent": "Kleros Capital Partners",
+      "country": "Singapore",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "4a93c225252b5dd6",
+          "editionId": 53,
+          "date": "2026-10-06",
+          "stage": "Otro",
+          "summary": "Tariq Khan analyzes the arbitration between Tata Power and Kleros Capital Partners and a Singapore court decision on loss of chance damages calculation, bifurcation, and arbitrator disclosure."
+        }
+      ],
+      "firstSeenEdition": 53,
+      "lastSeenEdition": 53,
+      "lastUpdated": "2026-10-06T14:33:26.329Z"
     }
   ]
 }
