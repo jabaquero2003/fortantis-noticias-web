@@ -424,6 +424,69 @@
       "firstSeenEdition": 53,
       "lastSeenEdition": 53,
       "lastUpdated": "2026-10-06T14:33:26.329Z"
+    },
+    {
+      "caseId": "privatbank-and-igor-kolomoisky-v-russia",
+      "name": "Privatbank and Igor Kolomoisky v. Russia",
+      "claimant": "Privatbank and Igor Kolomoisky",
+      "respondent": "Russia",
+      "country": "Rusia",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "d7142225dc5464c1",
+          "editionId": 54,
+          "date": "2026-10-07",
+          "stage": "Laudo",
+          "summary": "Privatbank e Igor Kolomoisky ganaron indemnización en demandas de tratados de inversión contra Rusia por expropiación de activos en Crimea."
+        }
+      ],
+      "firstSeenEdition": 54,
+      "lastSeenEdition": 54,
+      "lastUpdated": "2026-10-07T14:33:24.033Z"
+    },
+    {
+      "caseId": "liechtenstein-company-v-moldova",
+      "name": "Liechtenstein company v. Moldova",
+      "claimant": "Liechtenstein company",
+      "respondent": "Moldova",
+      "country": "Moldavia",
+      "sector": "Energía",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "0d81f028364d7033",
+          "editionId": 54,
+          "date": "2026-10-07",
+          "stage": "Laudo",
+          "summary": "Un tribunal rechazó una demanda de Tratado de la Carta de la Energía presentada por una empresa de Liechtenstein contra Moldavia sobre inversiones en distribución de gas."
+        }
+      ],
+      "firstSeenEdition": 54,
+      "lastSeenEdition": 54,
+      "lastUpdated": "2026-10-07T14:33:24.033Z"
+    },
+    {
+      "caseId": "hyundai-unit-v-turkish-subcontractor",
+      "name": "Hyundai unit v. Turkish subcontractor",
+      "claimant": "Hyundai unit",
+      "respondent": "Turkish subcontractor",
+      "country": "Qatar",
+      "forum": "ICC",
+      "sector": "Construcción",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "f9ef9b99dd154754",
+          "editionId": 54,
+          "date": "2026-10-07",
+          "stage": "Registro",
+          "summary": "El brazo de construcción de Hyundai presentó una demanda ICC de US$200 millones contra un subcontratista turco por trabajos electromecanicos en desarrollo de Qatar."
+        }
+      ],
+      "firstSeenEdition": 54,
+      "lastSeenEdition": 54,
+      "lastUpdated": "2026-10-07T14:33:24.033Z"
     }
   ]
 }
