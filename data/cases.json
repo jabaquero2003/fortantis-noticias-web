@@ -487,6 +487,70 @@
       "firstSeenEdition": 54,
       "lastSeenEdition": 54,
       "lastUpdated": "2026-10-07T14:33:24.033Z"
+    },
+    {
+      "caseId": "contratista-turco-v-compa-a-ferroviaria-estatal-de-etiop-a",
+      "name": "Contratista turco v. Compañía ferroviaria estatal de Etiopía",
+      "claimant": "Contratista turco",
+      "respondent": "Compañía ferroviaria estatal de Etiopía",
+      "country": "Etiopía",
+      "forum": "LCIA",
+      "sector": "Infraestructura ferroviaria",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "3b6afcb97d1ae1f2",
+          "editionId": 55,
+          "date": "2026-10-08",
+          "stage": "Laudo",
+          "summary": "Un contratista turco obtuvo una sentencia de más de US$300 millones en un reclamo ante la LCIA contra la compañía ferroviaria estatal etíope por retrasos causados por guerra civil."
+        }
+      ],
+      "firstSeenEdition": 55,
+      "lastSeenEdition": 55,
+      "lastUpdated": "2026-10-08T14:33:27.805Z"
+    },
+    {
+      "caseId": "privatbank-e-igor-kolomoisky-v-rusia",
+      "name": "Privatbank e Igor Kolomoisky v. Rusia",
+      "claimant": "Privatbank e Igor Kolomoisky",
+      "respondent": "Rusia",
+      "country": "Ucrania",
+      "sector": "Inversión",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "1831a6a535961bab",
+          "editionId": 55,
+          "date": "2026-10-08",
+          "stage": "Laudo",
+          "summary": "Privatbank e Igor Kolomoisky obtuvieron sentencias de daños en reclamos de tratado de inversión de larga duración contra Rusia por expropiación de activos en Crimea."
+        }
+      ],
+      "firstSeenEdition": 55,
+      "lastSeenEdition": 55,
+      "lastUpdated": "2026-10-08T14:33:27.805Z"
+    },
+    {
+      "caseId": "empresa-de-liechtenstein-v-moldavia",
+      "name": "Empresa de Liechtenstein v. Moldavia",
+      "claimant": "Empresa de Liechtenstein",
+      "respondent": "Moldavia",
+      "country": "Moldavia",
+      "sector": "Energía",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "dd5b610b614f16e8",
+          "editionId": 55,
+          "date": "2026-10-08",
+          "stage": "Laudo",
+          "summary": "Un tribunal rechazó el reclamo del Tratado de la Carta de Energía de una empresa de Liechtenstein contra Moldavia sobre inversiones en la red de distribución de gas; la empresa considera procedimientos de nulidad."
+        }
+      ],
+      "firstSeenEdition": 55,
+      "lastSeenEdition": 55,
+      "lastUpdated": "2026-10-08T14:33:27.805Z"
     }
   ]
 }
