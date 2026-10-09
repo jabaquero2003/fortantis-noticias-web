@@ -551,6 +551,92 @@
       "firstSeenEdition": 55,
       "lastSeenEdition": 55,
       "lastUpdated": "2026-10-08T14:33:27.805Z"
+    },
+    {
+      "caseId": "galp-v-venture-global",
+      "name": "Galp v. Venture Global",
+      "claimant": "Galp",
+      "respondent": "Venture Global",
+      "country": "Portugal",
+      "forum": "ICC",
+      "sector": "Energía (GNL)",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "a737578589b35060",
+          "editionId": 56,
+          "date": "2026-10-09",
+          "stage": "Laudo",
+          "summary": "Un tribunal de la ICC falló a favor de Galp en una disputa sobre cargamentos de GNL desviados."
+        }
+      ],
+      "firstSeenEdition": 56,
+      "lastSeenEdition": 56,
+      "lastUpdated": "2026-10-09T14:33:36.576Z"
+    },
+    {
+      "caseId": "dual-nationals-v-venezuela",
+      "name": "Dual nationals v. Venezuela",
+      "claimant": "Dual nationals",
+      "respondent": "Venezuela",
+      "country": "Venezuela",
+      "currentStage": "Anulación",
+      "developments": [
+        {
+          "storyId": "ed441e6eac7963de",
+          "editionId": 56,
+          "date": "2026-10-09",
+          "stage": "Anulación",
+          "summary": "La Corte de Casación francesa rechazó permitir que Venezuela reabriera un desafío a un laudo de tratado de inversión."
+        }
+      ],
+      "firstSeenEdition": 56,
+      "lastSeenEdition": 56,
+      "lastUpdated": "2026-10-09T14:33:36.576Z"
+    },
+    {
+      "caseId": "empresa-de-financiamiento-de-activos-brit-nica-inversor-de-planta-de-energ-a-v-t",
+      "name": "Empresa de financiamiento de activos británica, inversor de planta de energía v. Turquía, Malí",
+      "claimant": "Empresa de financiamiento de activos británica, inversor de planta de energía",
+      "respondent": "Turquía, Malí",
+      "country": "Turquía, Malí",
+      "forum": "ICSID",
+      "sector": "Financiamiento de activos, energía",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "f3b6ffa1452a334a",
+          "editionId": 56,
+          "date": "2026-10-09",
+          "stage": "Registro",
+          "summary": "Una empresa británica de financiamiento de activos presentó una demanda de ICSID contra Turquía y Malí enfrenta una demanda contractual de un inversor de planta."
+        }
+      ],
+      "firstSeenEdition": 56,
+      "lastSeenEdition": 56,
+      "lastUpdated": "2026-10-09T14:33:36.577Z"
+    },
+    {
+      "caseId": "contratista-turco-v-empresa-ferroviaria-estatal-de-etiop-a",
+      "name": "Contratista turco v. Empresa ferroviaria estatal de Etiopía",
+      "claimant": "Contratista turco",
+      "respondent": "Empresa ferroviaria estatal de Etiopía",
+      "country": "Turquía, Etiopía",
+      "forum": "LCIA",
+      "sector": "Infraestructura ferroviaria",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "886593b5933fa175",
+          "editionId": 56,
+          "date": "2026-10-09",
+          "stage": "Laudo",
+          "summary": "Un contratista turco obtuvo más de US$300 millones en una demanda de LCIA contra la empresa ferroviaria estatal de Etiopía."
+        }
+      ],
+      "firstSeenEdition": 56,
+      "lastSeenEdition": 56,
+      "lastUpdated": "2026-10-09T14:33:36.577Z"
     }
   ]
 }
