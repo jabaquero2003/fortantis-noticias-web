@@ -637,6 +637,70 @@
       "firstSeenEdition": 56,
       "lastSeenEdition": 56,
       "lastUpdated": "2026-10-09T14:33:36.577Z"
+    },
+    {
+      "caseId": "nacional-brit-nico-de-origen-chino-v-china",
+      "name": "Nacional británico de origen chino v. China",
+      "claimant": "Nacional británico de origen chino",
+      "respondent": "China",
+      "country": "China",
+      "forum": "Tribunal Suizo",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "f4caf390e38ab466",
+          "editionId": 57,
+          "date": "2026-10-12",
+          "stage": "Laudo",
+          "summary": "Un tribunal suizo confirmó un laudo de US$26 millones en el primer reclamo inversor-estado exitoso contra China, rechazando alegaciones de sesgo del tribunal arbitral."
+        }
+      ],
+      "firstSeenEdition": 57,
+      "lastSeenEdition": 57,
+      "lastUpdated": "2026-10-12T14:33:54.760Z"
+    },
+    {
+      "caseId": "entidad-estatal-paname-a-v-grupo-odebrecht-anterior-denominaci-n",
+      "name": "Entidad estatal panameña v. Grupo Odebrecht (anterior denominación)",
+      "claimant": "Entidad estatal panameña",
+      "respondent": "Grupo Odebrecht (anterior denominación)",
+      "country": "Panamá",
+      "sector": "Construcción/Infraestructura",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "7c801dc96a1641ae",
+          "editionId": 57,
+          "date": "2026-10-12",
+          "stage": "Registro",
+          "summary": "Una entidad estatal panameña prepara un segundo reclamo contra el grupo brasileño Odebrecht sobre construcción de terminal aeroportuaria, tras obtener laudo de US$30 millones en caso anterior."
+        }
+      ],
+      "firstSeenEdition": 57,
+      "lastSeenEdition": 57,
+      "lastUpdated": "2026-10-12T14:33:54.760Z"
+    },
+    {
+      "caseId": "empresa-brit-nica-de-financiamiento-de-activos-inversor-de-planta-de-energ-a-v-t",
+      "name": "Empresa británica de financiamiento de activos; Inversor de planta de energía v. Turquía; Mali",
+      "claimant": "Empresa británica de financiamiento de activos; Inversor de planta de energía",
+      "respondent": "Turquía; Mali",
+      "country": "Global",
+      "forum": "ICSID",
+      "sector": "Energía",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "d2aabe618def31f7",
+          "editionId": 57,
+          "date": "2026-10-12",
+          "stage": "Registro",
+          "summary": "Una empresa británica de financiamiento de activos presentó reclamo ICSID contra Turquía, mientras Mali enfrenta demanda contractual de inversor en planta de energía."
+        }
+      ],
+      "firstSeenEdition": 57,
+      "lastSeenEdition": 57,
+      "lastUpdated": "2026-10-12T14:33:54.761Z"
     }
   ]
 }
