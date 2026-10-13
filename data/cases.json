@@ -701,6 +701,72 @@
       "firstSeenEdition": 57,
       "lastSeenEdition": 57,
       "lastUpdated": "2026-10-12T14:33:54.761Z"
+    },
+    {
+      "caseId": "finnish-company-v-rosatom",
+      "name": "Finnish company v. Rosatom",
+      "claimant": "Finnish company",
+      "respondent": "Rosatom",
+      "country": "Rusia/Finlandia",
+      "forum": "ICC",
+      "sector": "Energía nuclear",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "57604933c81ec864",
+          "editionId": 58,
+          "date": "2026-10-13",
+          "stage": "Laudo",
+          "summary": "Tribunal ICC ordenó a Rosatom pagar €606 millones netos a empresa finlandesa por central nuclear paralizada, confirmando contrapretensión rusa."
+        }
+      ],
+      "firstSeenEdition": 58,
+      "lastSeenEdition": 58,
+      "lastUpdated": "2026-10-13T14:33:33.473Z"
+    },
+    {
+      "caseId": "deutsche-telekom-v-india",
+      "name": "Deutsche Telekom v. India",
+      "claimant": "Deutsche Telekom",
+      "respondent": "India",
+      "country": "Estados Unidos/India",
+      "forum": "US court",
+      "sector": "Telecomunicaciones",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "60424a6636e08988",
+          "editionId": 58,
+          "date": "2026-10-13",
+          "stage": "Enforcement",
+          "summary": "Corte estadounidense ejecutó laudo de tratado de inversión de US$175 millones a favor de Deutsche Telekom por segunda ocasión tras revisión de defensas substantivas."
+        }
+      ],
+      "firstSeenEdition": 58,
+      "lastSeenEdition": 58,
+      "lastUpdated": "2026-10-13T14:33:33.473Z"
+    },
+    {
+      "caseId": "us-oil-investors-v-mexico",
+      "name": "US oil investors v. Mexico",
+      "claimant": "US oil investors",
+      "respondent": "Mexico",
+      "country": "México/Canadá/Estados Unidos",
+      "forum": "Canadian court",
+      "sector": "Petróleo",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "037ba98dc64a8e01",
+          "editionId": 58,
+          "date": "2026-10-13",
+          "stage": "Otro",
+          "summary": "Corte canadiense rechazó apelación de México sobre decisión que revivió reclamación TLCAN de US$270 millones de inversionistas petroleros estadounidenses."
+        }
+      ],
+      "firstSeenEdition": 58,
+      "lastSeenEdition": 58,
+      "lastUpdated": "2026-10-13T14:33:33.473Z"
     }
   ]
 }
