@@ -767,6 +767,70 @@
       "firstSeenEdition": 58,
       "lastSeenEdition": 58,
       "lastUpdated": "2026-10-13T14:33:33.473Z"
+    },
+    {
+      "caseId": "inversionista-mexicano-del-sector-de-servicios-financieros-v-honduras",
+      "name": "inversionista mexicano del sector de servicios financieros v. Honduras",
+      "claimant": "inversionista mexicano del sector de servicios financieros",
+      "respondent": "Honduras",
+      "country": "Honduras",
+      "forum": "ICSID",
+      "sector": "Servicios financieros",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "9418174949695629",
+          "editionId": 59,
+          "date": "2026-10-14",
+          "stage": "Laudo",
+          "summary": "Un tribunal ICSID desestimó una demanda por al menos US$380 millones presentada por un inversionista mexicano del sector de servicios financieros contra Honduras."
+        }
+      ],
+      "firstSeenEdition": 59,
+      "lastSeenEdition": 59,
+      "lastUpdated": "2026-10-14T14:33:21.134Z"
+    },
+    {
+      "caseId": "filial-de-ohla-v-pemex",
+      "name": "filial de OHLA v. Pemex",
+      "claimant": "filial de OHLA",
+      "respondent": "Pemex",
+      "country": "México",
+      "forum": "ICC",
+      "sector": "Construcción",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "366891b93570f7be",
+          "editionId": 59,
+          "date": "2026-10-14",
+          "stage": "Enforcement",
+          "summary": "Una filial del grupo constructor español OHLA desistió de ejecutar un laudo ICC de US$15 millones contra Pemex por un proyecto de hidrógeno paralizado, mientras continúa otra acción contra la entidad estatal."
+        }
+      ],
+      "firstSeenEdition": 59,
+      "lastSeenEdition": 59,
+      "lastUpdated": "2026-10-14T14:33:21.134Z"
+    },
+    {
+      "caseId": "cuatro-nacionales-rusos-v-uni-n-europea",
+      "name": "Cuatro nacionales rusos v. Unión Europea",
+      "claimant": "Cuatro nacionales rusos",
+      "respondent": "Unión Europea",
+      "country": "Rusia",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "1838514bcd391a49",
+          "editionId": 59,
+          "date": "2026-10-14",
+          "stage": "Laudo",
+          "summary": "Cuatro nacionales rusos perdieron un desafío a un paquete de sanciones de la UE que limita su capacidad para ejercer arbitraje inversor-estado sobre medidas relacionadas con sanciones."
+        }
+      ],
+      "firstSeenEdition": 59,
+      "lastSeenEdition": 59,
+      "lastUpdated": "2026-10-14T14:33:21.134Z"
     }
   ]
 }
