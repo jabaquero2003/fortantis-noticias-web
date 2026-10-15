@@ -831,6 +831,71 @@
       "firstSeenEdition": 59,
       "lastSeenEdition": 59,
       "lastUpdated": "2026-10-14T14:33:21.134Z"
+    },
+    {
+      "caseId": "argentina-v-united-kingdom",
+      "name": "Argentina v. United Kingdom",
+      "claimant": "Argentina",
+      "respondent": "United Kingdom",
+      "country": "Argentina",
+      "forum": "UN Convention on the Law of the Sea",
+      "sector": "Oil and Gas",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "9cb622e55fae7f1d",
+          "editionId": 60,
+          "date": "2026-10-15",
+          "stage": "Otro",
+          "summary": "Argentina filed for provisional measures in its UNCLOS arbitration against the UK over planned offshore oil drilling in the southwest Atlantic near the Falkland Islands."
+        }
+      ],
+      "firstSeenEdition": 60,
+      "lastSeenEdition": 60,
+      "lastUpdated": "2026-10-15T14:33:31.191Z"
+    },
+    {
+      "caseId": "malaysian-oil-palm-producer-v-indonesian-state-controlled-energy-provider",
+      "name": "Malaysian oil palm producer v. Indonesian state-controlled energy provider",
+      "claimant": "Malaysian oil palm producer",
+      "respondent": "Indonesian state-controlled energy provider",
+      "country": "Indonesia",
+      "sector": "Energy",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "622bdb869774e6da",
+          "editionId": 60,
+          "date": "2026-10-15",
+          "stage": "Enforcement",
+          "summary": "An Indonesian state-owned energy provider settled a US$53 million arbitration dispute with a Malaysian oil palm producer over a terminated gas supply contract."
+        }
+      ],
+      "firstSeenEdition": 60,
+      "lastSeenEdition": 60,
+      "lastUpdated": "2026-10-15T14:33:31.191Z"
+    },
+    {
+      "caseId": "us-biotech-company-v-novartis",
+      "name": "US biotech company v. Novartis",
+      "claimant": "US biotech company",
+      "respondent": "Novartis",
+      "country": "USA",
+      "forum": "ICC",
+      "sector": "Pharmaceuticals and Biotechnology",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "7ecc3a48e8a22240",
+          "editionId": 60,
+          "date": "2026-10-15",
+          "stage": "Enforcement",
+          "summary": "A US court enforced an ICC arbitral award in favor of a US biotech company against Swiss pharmaceutical group Novartis over commercial rights to an eye disease treatment worth tens of billions of dollars."
+        }
+      ],
+      "firstSeenEdition": 60,
+      "lastSeenEdition": 60,
+      "lastUpdated": "2026-10-15T14:33:31.191Z"
     }
   ]
 }
