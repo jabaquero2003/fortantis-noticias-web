@@ -896,6 +896,71 @@
       "firstSeenEdition": 60,
       "lastSeenEdition": 60,
       "lastUpdated": "2026-10-15T14:33:31.191Z"
+    },
+    {
+      "caseId": "am-rica-m-vil-v-chile",
+      "name": "América Móvil v. Chile",
+      "claimant": "América Móvil",
+      "respondent": "Chile",
+      "country": "Chile",
+      "forum": "ICSID",
+      "sector": "Telecomunicaciones",
+      "currentStage": "Otro",
+      "developments": [
+        {
+          "storyId": "110b2d0210055243",
+          "editionId": 66,
+          "date": "2026-10-28",
+          "stage": "Otro",
+          "summary": "Grupo mexicano de telecomunicaciones América Móvil ha amenazado con presentar una demanda por tratado de inversión contra Chile por su acuerdo en una disputa ICSID con un operador móvil rival."
+        }
+      ],
+      "firstSeenEdition": 66,
+      "lastSeenEdition": 66,
+      "lastUpdated": "2026-10-28T14:33:48.081Z"
+    },
+    {
+      "caseId": "naftogaz-v-rusia",
+      "name": "Naftogaz v. Rusia",
+      "claimant": "Naftogaz",
+      "respondent": "Rusia",
+      "country": "Ucrania",
+      "sector": "Energía",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "d48e3467becabb3e",
+          "editionId": 66,
+          "date": "2026-10-28",
+          "stage": "Enforcement",
+          "summary": "Juez estadounidense rechaza desestimar la acción de Naftogaz para ejecutar un laudo de tratado de inversión valorado en más de USD 5 mil millones contra Rusia."
+        }
+      ],
+      "firstSeenEdition": 66,
+      "lastSeenEdition": 66,
+      "lastUpdated": "2026-10-28T14:33:48.081Z"
+    },
+    {
+      "caseId": "productor-de-energ-a-israel-v-socios-locales-de-chevron",
+      "name": "Productor de energía israelí v. Socios locales de Chevron",
+      "claimant": "Productor de energía israelí",
+      "respondent": "Socios locales de Chevron",
+      "country": "Israel",
+      "forum": "LCIA",
+      "sector": "Energía",
+      "currentStage": "Audiencia",
+      "developments": [
+        {
+          "storyId": "9b45678366041294",
+          "editionId": 66,
+          "date": "2026-10-28",
+          "stage": "Audiencia",
+          "summary": "Productor de energía israelí presenta arbitraje ante LCIA contra socios locales de Chevron en proyecto gasífero del Mediterráneo tras terminación de acuerdo de suministro a largo plazo valorado en USD 6.7 mil millones."
+        }
+      ],
+      "firstSeenEdition": 66,
+      "lastSeenEdition": 66,
+      "lastUpdated": "2026-10-28T14:33:48.081Z"
     }
   ]
 }
