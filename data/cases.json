@@ -961,6 +961,27 @@
       "firstSeenEdition": 66,
       "lastSeenEdition": 66,
       "lastUpdated": "2026-10-28T14:33:48.081Z"
+    },
+    {
+      "caseId": "pakistan-v-etisalat",
+      "name": "Pakistan v. Etisalat",
+      "claimant": "Pakistan",
+      "respondent": "Etisalat",
+      "country": "Pakistan",
+      "sector": "Telecomunicaciones",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "724394f1d1ee0d1d",
+          "editionId": 72,
+          "date": "2026-11-05",
+          "stage": "Registro",
+          "summary": "Pakistan considera presentar demanda de arbitraje internacional contra la empresa de telecomunicaciones Etisalat de los EAU por recuperar US$800 millones adeudados bajo un acuerdo de privatización de dos décadas."
+        }
+      ],
+      "firstSeenEdition": 72,
+      "lastSeenEdition": 72,
+      "lastUpdated": "2026-11-05T14:33:48.163Z"
     }
   ]
 }
