@@ -982,6 +982,28 @@
       "firstSeenEdition": 72,
       "lastSeenEdition": 72,
       "lastUpdated": "2026-11-05T14:33:48.163Z"
+    },
+    {
+      "caseId": "e-on-v-espa-a",
+      "name": "E.ON v. España",
+      "claimant": "E.ON",
+      "respondent": "España",
+      "country": "España",
+      "forum": "ICSID",
+      "sector": "Energía renovable",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "11184f448d40f75a",
+          "editionId": 73,
+          "date": "2026-11-06",
+          "stage": "Enforcement",
+          "summary": "E.ON solicita a un tribunal estadounidense ejecutar un laudo de ICSID que ordena a España pagar más de €314 millones por la reversión de subsidios a energías renovables."
+        }
+      ],
+      "firstSeenEdition": 73,
+      "lastSeenEdition": 73,
+      "lastUpdated": "2026-11-06T14:34:51.430Z"
     }
   ]
 }
