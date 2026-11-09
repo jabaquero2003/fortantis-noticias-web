@@ -1004,6 +1004,27 @@
       "firstSeenEdition": 73,
       "lastSeenEdition": 73,
       "lastUpdated": "2026-11-06T14:34:51.430Z"
+    },
+    {
+      "caseId": "french-us-businessman-v-peru",
+      "name": "French-US businessman v. Peru",
+      "claimant": "French-US businessman",
+      "respondent": "Peru",
+      "country": "Peru",
+      "forum": "ICC",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "2de9f4ae393d3e99",
+          "editionId": 74,
+          "date": "2026-11-09",
+          "stage": "Laudo",
+          "summary": "An ICC tribunal rejected a US$7.5 billion claim after finding the purported compensation agreement was fake."
+        }
+      ],
+      "firstSeenEdition": 74,
+      "lastSeenEdition": 74,
+      "lastUpdated": "2026-11-09T14:35:08.255Z"
     }
   ]
 }
