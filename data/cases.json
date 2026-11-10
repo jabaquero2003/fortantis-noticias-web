@@ -1025,6 +1025,28 @@
       "firstSeenEdition": 74,
       "lastSeenEdition": 74,
       "lastUpdated": "2026-11-09T14:35:08.255Z"
+    },
+    {
+      "caseId": "empresa-suiza-de-empaques-v-exmatriz",
+      "name": "Empresa suiza de empaques v. Exmatriz",
+      "claimant": "Empresa suiza de empaques",
+      "respondent": "Exmatriz",
+      "country": "Hong Kong",
+      "forum": "HKIAC",
+      "sector": "Empaques",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "bda57c4752ca3acd",
+          "editionId": 75,
+          "date": "2026-11-10",
+          "stage": "Enforcement",
+          "summary": "Empresa suiza solicita a corte de Hong Kong que declare en desacato a exmatriz por incumplimiento de laudo de emergencia en disputa HKIAC."
+        }
+      ],
+      "firstSeenEdition": 75,
+      "lastSeenEdition": 75,
+      "lastUpdated": "2026-11-10T14:34:19.475Z"
     }
   ]
 }
