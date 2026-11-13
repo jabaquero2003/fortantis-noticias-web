@@ -1047,6 +1047,48 @@
       "firstSeenEdition": 75,
       "lastSeenEdition": 75,
       "lastUpdated": "2026-11-10T14:34:19.475Z"
+    },
+    {
+      "caseId": "exxonmobil-v-european-union",
+      "name": "ExxonMobil v. European Union",
+      "claimant": "ExxonMobil",
+      "respondent": "European Union",
+      "country": "Unión Europea",
+      "sector": "Energía",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "33c4d58b9609ca84",
+          "editionId": 78,
+          "date": "2026-11-13",
+          "stage": "Registro",
+          "summary": "ExxonMobil presentó una demanda bajo el Tratado sobre la Carta de la Energía contra la UE por obligaciones de almacenamiento de carbono en legislación de neutralidad climática."
+        }
+      ],
+      "firstSeenEdition": 78,
+      "lastSeenEdition": 78,
+      "lastUpdated": "2026-11-13T14:34:27.969Z"
+    },
+    {
+      "caseId": "spanish-industrial-gas-exporter-and-founder-v-equatorial-guinea",
+      "name": "Spanish industrial gas exporter and founder v. Equatorial Guinea",
+      "claimant": "Spanish industrial gas exporter and founder",
+      "respondent": "Equatorial Guinea",
+      "country": "Guinea Ecuatorial",
+      "sector": "Energía",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "828fbc563f025884",
+          "editionId": 78,
+          "date": "2026-11-13",
+          "stage": "Registro",
+          "summary": "Exportador de gas industrial español y su fundador presentaron demanda de tratado contra Guinea Ecuatorial por supuesta expropiación de proyecto de distribución de gas y condena penal del fundador."
+        }
+      ],
+      "firstSeenEdition": 78,
+      "lastSeenEdition": 78,
+      "lastUpdated": "2026-11-13T14:34:27.969Z"
     }
   ]
 }
