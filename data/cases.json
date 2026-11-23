@@ -1089,6 +1089,133 @@
       "firstSeenEdition": 78,
       "lastSeenEdition": 78,
       "lastUpdated": "2026-11-13T14:34:27.969Z"
+    },
+    {
+      "caseId": "dassault-aviation-v-airbus",
+      "name": "Dassault Aviation v. Airbus",
+      "claimant": "Dassault Aviation",
+      "respondent": "Airbus",
+      "country": "Francia",
+      "sector": "Defensa / Aeroespacial",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "47ef3f61fc6e51aa",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Registro",
+          "summary": "Dassault Aviation ha lanzado arbitraje contra Airbus por terminación de un subcontrato de mil millones de euros para un sistema de defensa de drones europeo."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "advent-international-v-cvc-capital-partners",
+      "name": "Advent International v. CVC Capital Partners",
+      "claimant": "Advent International",
+      "respondent": "CVC Capital Partners",
+      "country": "Italia",
+      "sector": "Alimentos",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "abf6d62df0b83097",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Registro",
+          "summary": "Advent International considera presentar arbitraje contra CVC Capital Partners por su retiro de un acuerdo de casi 3 mil millones de euros para comprar un fabricante de alimentos italiano."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "micula-brothers-v-rumania",
+      "name": "Micula brothers v. Rumania",
+      "claimant": "Micula brothers",
+      "respondent": "Rumania",
+      "country": "Rumania",
+      "forum": "ICSID",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "16261d43126bbbc4",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Enforcement",
+          "summary": "Abogado general de la CJUE recomienda anular decisión de la Comisión Europea que bloqueaba el pago del laudo ICSID de 178 millones de euros ganado por los hermanos Micula."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "inversionistas-turcos-v-uzbekist-n",
+      "name": "inversionistas turcos v. Uzbekistán",
+      "claimant": "inversionistas turcos",
+      "respondent": "Uzbekistán",
+      "country": "Uzbekistán",
+      "forum": "ICSID",
+      "sector": "Alimentos",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "cd43122c16886043",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Laudo",
+          "summary": "Uzbekistán anuncia victoria en demanda ICSID presentada por grupo de inversionistas turcos respecto de un negocio de productos alimenticios."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "the-gambia-v-myanmar",
+      "name": "The Gambia v. Myanmar",
+      "claimant": "The Gambia",
+      "respondent": "Myanmar",
+      "country": "Myanmar",
+      "forum": "International Court of Justice",
+      "currentStage": "Laudo",
+      "developments": [
+        {
+          "storyId": "01fc7ceb61f3a11e",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Laudo",
+          "summary": "Equipo de arbitraje internacional de Foley Hoag ayuda a Gambia a obtener fallo histórico de ICJ responsabilizando a Myanmar por genocidio contra rohingyas."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "crescent-petroleum-v-national-iranian-oil-company",
+      "name": "Crescent Petroleum v. National Iranian Oil Company",
+      "claimant": "Crescent Petroleum",
+      "respondent": "National Iranian Oil Company",
+      "country": "Irán",
+      "sector": "Petróleo y Gas",
+      "currentStage": "Enforcement",
+      "developments": [
+        {
+          "storyId": "431c0c9e3d1b6062",
+          "editionId": 84,
+          "date": "2026-11-23",
+          "stage": "Enforcement",
+          "summary": "Crescent Petroleum de EAU busca ejecutar laudo de más de 2 mil millones de dólares contra NIOC en Singapur, donde corte confirma que NIOC no goza de inmunidad soberana."
+        }
+      ],
+      "firstSeenEdition": 84,
+      "lastSeenEdition": 84,
+      "lastUpdated": "2026-11-23T14:34:41.305Z"
     }
   ]
 }
