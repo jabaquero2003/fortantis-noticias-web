@@ -1100,6 +1100,13 @@
       "currentStage": "Registro",
       "developments": [
         {
+          "storyId": "5715441b21493187",
+          "editionId": 85,
+          "date": "2026-11-24",
+          "stage": "Registro",
+          "summary": "French aerospace company Dassault Aviation launched arbitration against Airbus over the termination of a billion-euro subcontract for a European drone defence system."
+        },
+        {
           "storyId": "47ef3f61fc6e51aa",
           "editionId": 84,
           "date": "2026-11-23",
@@ -1108,8 +1115,8 @@
         }
       ],
       "firstSeenEdition": 84,
-      "lastSeenEdition": 84,
-      "lastUpdated": "2026-11-23T14:34:41.305Z"
+      "lastSeenEdition": 85,
+      "lastUpdated": "2026-11-24T14:35:04.118Z"
     },
     {
       "caseId": "advent-international-v-cvc-capital-partners",
@@ -1118,8 +1125,15 @@
       "respondent": "CVC Capital Partners",
       "country": "Italia",
       "sector": "Alimentos",
-      "currentStage": "Registro",
+      "currentStage": "Otro",
       "developments": [
+        {
+          "storyId": "9e4ea705413a3682",
+          "editionId": 85,
+          "date": "2026-11-24",
+          "stage": "Otro",
+          "summary": "Boston-based private equity group Advent International is considering filing arbitration against CVC Capital Partners over its withdrawal from a nearly €3 billion deal to buy an Italian food manufacturer."
+        },
         {
           "storyId": "abf6d62df0b83097",
           "editionId": 84,
@@ -1129,8 +1143,8 @@
         }
       ],
       "firstSeenEdition": 84,
-      "lastSeenEdition": 84,
-      "lastUpdated": "2026-11-23T14:34:41.305Z"
+      "lastSeenEdition": 85,
+      "lastUpdated": "2026-11-24T14:35:04.118Z"
     },
     {
       "caseId": "micula-brothers-v-rumania",
@@ -1216,6 +1230,28 @@
       "firstSeenEdition": 84,
       "lastSeenEdition": 84,
       "lastUpdated": "2026-11-23T14:34:41.305Z"
+    },
+    {
+      "caseId": "us-poultry-processing-company-v-mexico",
+      "name": "US poultry processing company v. Mexico",
+      "claimant": "US poultry processing company",
+      "respondent": "Mexico",
+      "country": "Mexico",
+      "forum": "ICSID",
+      "sector": "Agriculture/Food Processing",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "ce839b9f23fbed46",
+          "editionId": 85,
+          "date": "2026-11-24",
+          "stage": "Registro",
+          "summary": "A US poultry processing company filed an ICSID claim against Mexico following a dispute over tax liabilities arising from an acquisition in the country."
+        }
+      ],
+      "firstSeenEdition": 85,
+      "lastSeenEdition": 85,
+      "lastUpdated": "2026-11-24T14:35:04.118Z"
     }
   ]
 }
