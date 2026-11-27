@@ -1252,6 +1252,72 @@
       "firstSeenEdition": 85,
       "lastSeenEdition": 85,
       "lastUpdated": "2026-11-24T14:35:04.118Z"
+    },
+    {
+      "caseId": "vulcan-v-m-xico",
+      "name": "Vulcan v. México",
+      "claimant": "Vulcan",
+      "respondent": "México",
+      "country": "México",
+      "forum": "ICSID",
+      "sector": "Materiales de construcción",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "6e79a6b77732fc38",
+          "editionId": 88,
+          "date": "2026-11-27",
+          "stage": "Registro",
+          "summary": "Vulcan, grupo estadounidense de materiales de construcción, interpuso una segunda demanda ICSID contra México por operaciones de cantera de caliza, mientras busca anular un laudo TLCAN anterior que rechazó la mayoría de sus reclamaciones de daños."
+        }
+      ],
+      "firstSeenEdition": 88,
+      "lastSeenEdition": 88,
+      "lastUpdated": "2026-11-27T14:34:50.417Z"
+    },
+    {
+      "caseId": "exdue-o-y-ejecutivo-de-fintech-de-miami-v-grupo-luxemburgu-s-de-ti",
+      "name": "Exdueño y ejecutivo de fintech de Miami v. Grupo luxemburgués de TI",
+      "claimant": "Exdueño y ejecutivo de fintech de Miami",
+      "respondent": "Grupo luxemburgués de TI",
+      "country": "Global",
+      "forum": "ICC",
+      "sector": "Tecnología financiera",
+      "currentStage": "Registro",
+      "developments": [
+        {
+          "storyId": "d63af23c7affc2bb",
+          "editionId": 88,
+          "date": "2026-11-27",
+          "stage": "Registro",
+          "summary": "Un grupo luxemburgués de TI enfrenta una demanda de la ICC presentada por un exdueño y ejecutivo de una compañía fintech de Miami que fue adquirida por USD 350 millones."
+        }
+      ],
+      "firstSeenEdition": 88,
+      "lastSeenEdition": 88,
+      "lastUpdated": "2026-11-27T14:34:50.417Z"
+    },
+    {
+      "caseId": "coleccionista-de-arte-v-galer-a-de-arte-contempor-neo-internacional",
+      "name": "Coleccionista de arte v. Galería de arte contemporáneo internacional",
+      "claimant": "Coleccionista de arte",
+      "respondent": "Galería de arte contemporáneo internacional",
+      "country": "Global",
+      "forum": "LCIA",
+      "sector": "Arte",
+      "currentStage": "Medidas cautelares",
+      "developments": [
+        {
+          "storyId": "462af1d76534da77",
+          "editionId": 88,
+          "date": "2026-11-27",
+          "stage": "Medidas cautelares",
+          "summary": "Un árbitro único de la LCIA otorgó medidas cautelares a un coleccionista de arte contra una galería de arte contemporáneo internacional por presunto manejo indebido y uso no autorizado de obras de arte valoradas en millones de dólares."
+        }
+      ],
+      "firstSeenEdition": 88,
+      "lastSeenEdition": 88,
+      "lastUpdated": "2026-11-27T14:34:50.417Z"
     }
   ]
 }
